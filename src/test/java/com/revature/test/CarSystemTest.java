@@ -8,8 +8,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class CarSystemTest {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
+import com.revature.service.CarSystem;
+
+public class CarSystemTest {
+	CarSystem carSys;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -20,6 +27,7 @@ public class CarSystemTest {
 
 	@Before
 	public void setUp() throws Exception {
+		carSys = new CarSystem();
 	}
 
 	@After
@@ -27,8 +35,19 @@ public class CarSystemTest {
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testLogInUsername() {
+		assertEquals("The username should be Robert", "Robert", carSys.logInUsername());
 	}
-
+	
+	@Test
+	public void testLogInPassword() {
+		assertEquals("The password should be 11211", "11211", carSys.logInPassword());
+	}
+	
+	/*
+	 * @Test public void testMenu() { assertEquals("The choice is 1", new
+	 * Integer(1), carSys.showMenu()); }
+	 */
+	
+	
 }

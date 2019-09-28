@@ -1,0 +1,6 @@
+2019-09-28 15:24:52 INFO  root(1):26 chose3
+2019-09-28 15:27:12 INFO  root(1):26 did not choose 1 2 or 3
+2019-09-28 15:32:38 INFO  root(1):26 did not choose 1 2 or 3
+2019-09-28 15:33:05 INFO  root(1):26 did not choose 1 2 or 3
+2019-09-28 15:33:20 INFO  root(1):26 did not choose 1 2 or 3
+2019-09-28 15:33:34 INFO  root(1):26 chose3
