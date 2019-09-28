@@ -1,5 +1,7 @@
 package com.revature.pojos;
 
-public class Employee {
+import java.io.Serializable;
+
+public class Employee implements Serializable {
 
 }

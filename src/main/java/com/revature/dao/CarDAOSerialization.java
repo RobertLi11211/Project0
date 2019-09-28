@@ -22,18 +22,9 @@ public class CarDAOSerialization implements CarDAO {
 			fileName = "MysteryMachine.dat";
 		}
 		
-		/*
-		 * try { fos = new FileOutputStream(fileName); oos = new
-		 * ObjectOutputStream(fos); oos.writeObject(c); } catch (FileNotFoundException
-		 * e) { e.printStackTrace(); } catch (IOException e) { // TODO Auto-generated
-		 * catch block e.printStackTrace(); } finally { if (oos != null) { try {
-		 * oos.close(); } catch (IOException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); } } if (fos != null) { try { fos.close(); } catch
-		 * (IOException e) { // TODO Auto-generated catch block e.printStackTrace(); } }
-		 * }
-		 */
-		
+			
 		try (FileOutputStream fos = new FileOutputStream(fileName); ObjectOutputStream oos = new ObjectOutputStream(fos);) {
+			oos.writeObject(c);
 			
 		} catch (IOException e) {
 			e.printStackTrace();

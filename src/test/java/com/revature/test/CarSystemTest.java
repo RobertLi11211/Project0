@@ -49,5 +49,8 @@ public class CarSystemTest {
 	 * Integer(1), carSys.showMenu()); }
 	 */
 	
-	
+	@Test
+	public void testGoToMain() {
+		assertEquals("This should go to main", "", carSys.logInPassword());
+	}
 }

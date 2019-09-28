@@ -1,10 +1,12 @@
 package com.revature.dao;
 
+import java.util.List;
+
 import com.revature.pojos.Customer;
 import com.revature.pojos.CustomerList;
 
 public interface CustomerListDAO {
-	public void createCustomerList(CustomerList c);
+	public void createCustomerList(List<String> c);
 
-	public CustomerList readCustomerList();
+	public List<String> readCustomerList();
 }

@@ -20,6 +20,7 @@ public class CustomerDAOSerialization implements CustomerDAO {
 		}
 		try (FileOutputStream fos = new FileOutputStream(fileName);
 				ObjectOutputStream oos = new ObjectOutputStream(fos);) {
+			oos.writeObject(c);
 
 		} catch (IOException e) {
 			e.printStackTrace();

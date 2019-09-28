@@ -1,8 +1,9 @@
 package com.revature.pojos;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Car {
+public class Car implements Serializable{
 	
 	private String vin;	
 	private Map<Double, Offer> offers = new HashMap<>();
@@ -10,7 +11,7 @@ public class Car {
 	private String make;
 	private String model;
 	private String color;
-	
+	private double remainingPayment;
 	
 	public String getVin() {
 		return vin;
@@ -47,6 +48,14 @@ public class Car {
 	}
 	public void setColor(String color) {
 		this.color = color;
+	}
+	
+	
+	public double getRemainingPayment() {
+		return remainingPayment;
+	}
+	public void setRemainingPayment(double remainingPayment) {
+		this.remainingPayment = remainingPayment;
 	}
 	@Override
 	public int hashCode() {
