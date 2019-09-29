@@ -5,8 +5,11 @@ import java.util.Map;
 
 import com.revature.pojos.Car;
 import com.revature.pojos.Customer;
+import com.revature.pojos.Employee;
 
 public interface CarSystemInterface {
+	
+	public void checkMain(String s);
 	
 	public double calculateMonthlyPayment(Car car);
 	
@@ -14,13 +17,27 @@ public interface CarSystemInterface {
 	
 	public void createCustomer();
 	
-	public String logInUsername();
+	public void createEmployee();
 	
-	public String logInPassword();
+	public String loginUsername();
+	
+	public String loginPassword();
 
 	public int showMenu();
 	
 	public List<Customer> getCustomerList();
 	
+	public List<Employee> getEmployeeList();
+	
 	public Map getCustomerUserAndPass();
+	
+	public Map getEmployeeUserAndPass();
+	
+	public boolean customerLogin(String username, String password);
+	
+	public boolean employeeLogin(String username, String password);
+	
+	public void showEmployeeMenu();
+	
+	public void showCustomerMenu();
 }

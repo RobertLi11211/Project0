@@ -5,19 +5,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.List;
 
-import com.revature.pojos.Customer;
-
-public class CustomerDAOSerialization implements CustomerDAO {
+public class CarLotDAOSerialization implements CarLotDAO {
 
 	@Override
-	public void createCustomer(Customer c) {
-		String fileName;
-		if (c.getUsername() != null) {
-			fileName = c.getUsername() + "Customer.dat";
-		} else {
-			fileName = "MysteryPerson.dat";
-		}
+	public void createCarLot(List<String> c) {
+		String fileName = "CarLot.dat";
 		try (FileOutputStream fos = new FileOutputStream(fileName);
 				ObjectOutputStream oos = new ObjectOutputStream(fos);) {
 			oos.writeObject(c);
@@ -25,26 +19,22 @@ public class CustomerDAOSerialization implements CustomerDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	@Override
-	public Customer readCustomer(String username) {
-		String fileName = username + "Customer.dat";
-		Customer ret = null;
+	public List<String> readCarLotList() {
+		String fileName = "CarLot.dat";
+		List<String> ret = null;
 		try (FileInputStream fis = new FileInputStream(fileName); ObjectInputStream ois = new ObjectInputStream(fis);) {
-			ret = (Customer) ois.readObject();
+			ret = (List<String>) ois.readObject();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return ret;
-		
-		
-		
 	}
 
 }

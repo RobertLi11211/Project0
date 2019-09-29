@@ -3,9 +3,12 @@ package com.revature.service;
 import com.revature.dao.CustomerDAOSerialization;
 
 import com.revature.dao.CustomerListDAOSerialization;
+import com.revature.dao.EmployeeDAOSerialization;
+import com.revature.dao.EmployeeListDAOSerialization;
 import com.revature.pojos.Car;
 import com.revature.pojos.Customer;
 import com.revature.pojos.CustomerList;
+import com.revature.pojos.Employee;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,30 +21,24 @@ public class CarSystem implements CarSystemInterface {
 	Scanner scanner = new Scanner(System.in);
 
 	@Override
-	public double calculateMonthlyPayment(Car car) {
-		// TODO Auto-generated method stub
-		double monthlyPayment = 0;
-		return monthlyPayment;
-	}
-
-	@Override
-	public void rejectPendingOffer(Car car) {
-		// TODO Auto-generated method stub
-
+	public void checkMain(String s) {
+		if (s.contentEquals("main")) {
+			showMenu();
+		}
 	}
 
 	@Override
 	public void createCustomer() {
 		List<Customer> customerList = getCustomerList();
 		Map<String, String> userAndPass = getCustomerUserAndPass();
-		String username = logInUsername();
+		String username = loginUsername();
 
 		if (userAndPass.containsKey(username)) {
 			System.out.println("Username already taken. \nPlease enter a new username");
-			username = logInUsername();
+			username = loginUsername();
 		}
 
-		String password = logInPassword();
+		String password = loginPassword();
 		Customer newCustomer = new Customer(username, password);
 		customerList.add(newCustomer);
 		CustomerListDAOSerialization cDAO = new CustomerListDAOSerialization();
@@ -52,37 +49,34 @@ public class CarSystem implements CarSystemInterface {
 		cDAO.createCustomerList(customers);
 
 	}
+	
+	@Override
+	public void createEmployee() {
+		;
+		
+	}
 
 	@Override
-	public String logInUsername() {
+	public String loginUsername() {
 		System.out.println("Enter username. \nTo return to the main menu, type main ");
 		String username = scanner.nextLine();
-		if (username.contentEquals("main")) {
-			showMenu();
-			return "";
-		}
-
+		checkMain(username);
 		return username;
 	}
 
 	@Override
-	public String logInPassword() {
+	public String loginPassword() {
 		System.out.println("Enter password. \nTo return to the main menu, type main ");
-		// info("reached pass succesfully");
+		info("reached pass succesfully");
 		String password = scanner.nextLine();
-
-		if (password.contentEquals("main")) {
-			showMenu();
-			return "";
-		}
-
+		checkMain(password);
 		return password;
 	}
 
 	@Override
 	public int showMenu() {
-		System.out.println("If you are an employee, press 1." + "\n" + "If you are a customer, press 2." + "\n"
-				+ "If you would like to register as a customer, press 3.");
+		System.out.println("If you would like to register as a customer, press 1." + "\n"
+				+ "If you are a customer, press 2." + "\n" + "If you are an employee, press 3.");
 		String choice = scanner.nextLine();
 		if (choice.contentEquals("1") || choice.contentEquals("2") || choice.contentEquals("3")) {
 			info("chose " + choice);
@@ -109,6 +103,19 @@ public class CarSystem implements CarSystemInterface {
 	}
 
 	@Override
+	public List<Employee> getEmployeeList() {
+		EmployeeListDAOSerialization eListGet = new EmployeeListDAOSerialization();
+		EmployeeDAOSerialization eDAO = new EmployeeDAOSerialization();
+		List<String> eList = eListGet.readEmployeeList();
+		List<Employee> employeeList = new ArrayList<>();
+		for (String s : eList) {
+			employeeList.add(eDAO.readEmployee(s));
+		}
+		return employeeList;
+
+	}
+
+	@Override
 	public Map getCustomerUserAndPass() {
 		List<Customer> customerList = getCustomerList();
 		Map<String, String> userAndPass = new HashMap<>();
@@ -117,5 +124,82 @@ public class CarSystem implements CarSystemInterface {
 		}
 		return userAndPass;
 	}
+
+	@Override
+	public Map getEmployeeUserAndPass() {
+		List<Employee> customerList = getEmployeeList();
+		Map<String, String> userAndPass = new HashMap<>();
+		for (Employee c : customerList) {
+			userAndPass.put(c.getUsername(), c.getPassword());
+		}
+		return userAndPass;
+	}
+
+	@Override
+	public void showEmployeeMenu() {
+		
+	}
+
+	@Override
+	public void showCustomerMenu() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean customerLogin(String username, String password) {
+		Map<String, String> userAndPass = getCustomerUserAndPass();
+		
+		if (userAndPass.containsKey(username)) {
+			
+			String pass = userAndPass.get(username);
+			if (password.contentEquals(pass)) {
+				return true;
+			} else {
+				System.out.println("Incorrect password");
+				return false;
+			}
+			
+		} else {
+			System.out.println("Incorrect username");
+			return false;
+		}
+		
+	}
+
+	@Override
+	public boolean employeeLogin(String username, String password) {
+		Map<String, String> userAndPass = getEmployeeUserAndPass();
+		
+		if (userAndPass.containsKey(username)) {
+			
+			String pass = userAndPass.get(username);
+			if (password.contentEquals(pass)) {
+				return true;
+			} else {
+				System.out.println("Incorrect password");
+				return false;
+			}
+			
+		} else {
+			System.out.println("Incorrect username");
+			return false;
+		}
+	}
+
+	@Override
+	public double calculateMonthlyPayment(Car car) {
+		// TODO Auto-generated method stub
+		double monthlyPayment = 0;
+		return monthlyPayment;
+	}
+
+	@Override
+	public void rejectPendingOffer(Car car) {
+		// TODO Auto-generated method stub
+
+	}
+
+	
 
 }

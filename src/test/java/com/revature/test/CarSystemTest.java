@@ -36,12 +36,12 @@ public class CarSystemTest {
 
 	@Test
 	public void testLogInUsername() {
-		assertEquals("The username should be Robert", "Robert", carSys.logInUsername());
+		assertEquals("The username should be Robert", "Robert", carSys.loginUsername());
 	}
 	
 	@Test
 	public void testLogInPassword() {
-		assertEquals("The password should be 11211", "11211", carSys.logInPassword());
+		assertEquals("The password should be 11211", "11211", carSys.loginPassword());
 	}
 	
 	/*
@@ -50,7 +50,32 @@ public class CarSystemTest {
 	 */
 	
 	@Test
-	public void testGoToMain() {
-		assertEquals("This should go to main", "", carSys.logInPassword());
+	public void testCustomerLoginWorks() {
+		assertTrue("This should return true", carSys.customerLogin("Robert", "11211"));
+	}
+	
+	@Test
+	public void testCustomerLoginWrongPassword() {
+		assertFalse("This should return false", carSys.customerLogin("Robert", "11221"));
+	}
+	
+	@Test
+	public void testCustomerLoginWrongUsername() {
+		assertFalse("This should return false", carSys.customerLogin("Robert1", "11211"));
+	}
+	
+	@Test
+	public void testEmployeeLoginWorks() {
+		assertTrue("This should return true", carSys.employeeLogin("Robert", "11211"));
+	}
+	
+	@Test
+	public void testEmployeeLoginWrongPassword() {
+		assertFalse("This should return false", carSys.employeeLogin("Robert", "11221"));
+	}
+	
+	@Test
+	public void testEmployeeLoginWrongUsername() {
+		assertFalse("This should return false", carSys.employeeLogin("Robert1", "11211"));
 	}
 }

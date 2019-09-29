@@ -6,33 +6,36 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import com.revature.pojos.Car;
 import com.revature.pojos.Customer;
+import com.revature.pojos.Employee;
 
-public class CustomerDAOSerialization implements CustomerDAO {
+public class EmployeeDAOSerialization implements EmployeeDAO {
 
 	@Override
-	public void createCustomer(Customer c) {
+	public void createEmployee(Employee e) {
 		String fileName;
-		if (c.getUsername() != null) {
-			fileName = c.getUsername() + "Customer.dat";
+		if (e.getUsername() != null) {
+			fileName = e.getUsername() + "Employee.dat";
 		} else {
 			fileName = "MysteryPerson.dat";
 		}
 		try (FileOutputStream fos = new FileOutputStream(fileName);
 				ObjectOutputStream oos = new ObjectOutputStream(fos);) {
-			oos.writeObject(c);
+			oos.writeObject(e);
 
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
+
 	}
 
 	@Override
-	public Customer readCustomer(String username) {
-		String fileName = username + "Customer.dat";
-		Customer ret = null;
+	public Employee readEmployee(String username) {
+		String fileName = username + "Employee.dat";
+		Employee ret = null;
 		try (FileInputStream fis = new FileInputStream(fileName); ObjectInputStream ois = new ObjectInputStream(fis);) {
-			ret = (Customer) ois.readObject();
+			ret = (Employee) ois.readObject();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,9 +45,6 @@ public class CustomerDAOSerialization implements CustomerDAO {
 		}
 
 		return ret;
-		
-		
-		
 	}
 
 }
