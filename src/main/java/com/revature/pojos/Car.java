@@ -1,6 +1,7 @@
 package com.revature.pojos;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Car implements Serializable{
@@ -11,6 +12,7 @@ public class Car implements Serializable{
 	private String make;
 	private String model;
 	private String color;
+	private List<Double> payments;
 	private double remainingPayment;
 	
 	public String getVin() {
@@ -114,11 +116,9 @@ public class Car implements Serializable{
 		return "Car [vin=" + vin + ", offers=" + offers + ", acceptedOffer=" + acceptedOffer + ", make=" + make
 				+ ", model=" + model + ", color=" + color + "]";
 	}
-	public Car(String vin, Map<Double, Offer> offers, double acceptedOffer, String make, String model, String color) {
+	public Car(String vin, String make, String model, String color) {
 		super();
 		this.vin = vin;
-		this.offers = offers;
-		this.acceptedOffer = acceptedOffer;
 		this.make = make;
 		this.model = model;
 		this.color = color;

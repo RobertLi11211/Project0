@@ -29,3 +29,5 @@
 2019-09-28 19:20:13 INFO  root(1):26 reached pass succesfully
 2019-09-28 19:22:34 INFO  root(1):26 reached pass succesfully
 2019-09-28 19:23:55 INFO  root(1):26 reached pass succesfully
+2019-09-29 18:25:48 INFO  root(1):26 chose 1
+2019-09-29 18:25:56 INFO  root(1):26 reached pass succesfully

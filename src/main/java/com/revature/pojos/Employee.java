@@ -1,8 +1,9 @@
 package com.revature.pojos;
 
 import java.io.Serializable;
+import java.util.List;
 
-public class Employee implements Serializable {
+public class Employee implements Serializable, EmployeeInterface {
 	
 	private String username;
 	private String password;
@@ -61,6 +62,26 @@ public class Employee implements Serializable {
 	public Employee() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public void addCar(Car c) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void acceptOffer(double offer, String username) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void rejectOffer(double offer, String username) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public List<Double> viewPayments(Car c) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
