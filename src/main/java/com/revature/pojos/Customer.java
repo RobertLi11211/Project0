@@ -100,7 +100,14 @@ public class Customer implements Serializable, CustomerInterface {
 		List<String> carLotVin = carLotDAO.readCarLotList();
 		List<Car> ret = new ArrayList<>();
 		for (String s : carLotVin) {
-			ret.add(carDAO.readCar(s));
+			Car c = carDAO.readCar(s);
+			if (c.getAcceptedOffer() == 0) {
+				ret.add(c);
+			}
+		}
+		for (Car car: ret) {
+			System.out.println("VIN: " + car.getVin() + "\nMake: " + car.getMake() + 
+					"\nModel: " + car.getModel() + "\nColor: " + car.getColor());			
 		}
 		return ret;
 	}
@@ -117,6 +124,10 @@ public class Customer implements Serializable, CustomerInterface {
 			for (String vin : carVINs) {
 				myCars.add(carDAO.readCar(vin));
 			}
+		}
+		for (Car car: myCars) {
+			System.out.println("VIN: " + car.getVin() + "\nMake: " + car.getMake() + 
+					"\nModel: " + car.getModel() + "\nColor: " + car.getColor());			
 		}
 		return myCars;
 	}

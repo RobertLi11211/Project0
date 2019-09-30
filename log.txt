@@ -31,3 +31,86 @@
 2019-09-28 19:23:55 INFO  root(1):26 reached pass succesfully
 2019-09-29 18:25:48 INFO  root(1):26 chose 1
 2019-09-29 18:25:56 INFO  root(1):26 reached pass succesfully
+2019-09-30 13:59:38 INFO  root(1):26 chose 3
+2019-09-30 13:59:43 INFO  root(1):26 reached pass succesfully
+2019-09-30 14:00:18 INFO  root(1):26 chose 2
+2019-09-30 14:00:20 INFO  root(1):26 reached pass succesfully
+2019-09-30 14:04:11 INFO  root(1):26 chose 3
+2019-09-30 14:04:15 INFO  root(1):26 reached pass succesfully
+2019-09-30 14:05:56 INFO  root(1):26 reached pass succesfully
+2019-09-30 14:07:39 INFO  root(1):26 chose 3
+2019-09-30 14:07:41 INFO  root(1):26 reached pass succesfully
+2019-09-30 14:12:29 INFO  root(1):26 chose 3
+2019-09-30 14:12:31 INFO  root(1):26 reached pass succesfully
+2019-09-30 14:12:32 INFO  root(1):26 Employee [username=Robert, password=11211]
+2019-09-30 14:13:39 INFO  root(1):26 chose 3
+2019-09-30 14:13:40 INFO  root(1):26 reached pass succesfully
+2019-09-30 14:13:41 INFO  root(1):26 Employee [username=Robert, password=11211]
+2019-09-30 14:13:43 INFO  root(1):26 chose 6
+2019-09-30 14:13:51 INFO  root(1):26 chose 2
+2019-09-30 14:13:52 INFO  root(1):26 reached pass succesfully
+2019-09-30 14:14:06 INFO  root(1):26 chose 1
+2019-09-30 14:15:52 INFO  root(1):26 chose 2
+2019-09-30 14:15:53 INFO  root(1):26 reached pass succesfully
+2019-09-30 14:16:00 INFO  root(1):26 chose 1
+2019-09-30 14:16:05 INFO  root(1):26 reached pass succesfully
+2019-09-30 14:16:11 INFO  root(1):26 chose 2
+2019-09-30 14:16:52 INFO  root(1):26 chose 1
+2019-09-30 14:16:55 INFO  root(1):26 reached pass succesfully
+2019-09-30 14:17:01 INFO  root(1):26 chose 2
+2019-09-30 14:18:40 INFO  root(1):26 chose 2
+2019-09-30 14:18:41 INFO  root(1):26 reached pass succesfully
+2019-09-30 14:20:13 INFO  root(1):26 chose 1
+2019-09-30 14:20:17 INFO  root(1):26 reached pass succesfully
+2019-09-30 14:20:44 INFO  root(1):26 chose 2
+2019-09-30 14:20:46 INFO  root(1):26 reached pass succesfully
+2019-09-30 14:22:07 INFO  root(1):26 chose 3
+2019-09-30 14:22:09 INFO  root(1):26 reached pass succesfully
+2019-09-30 14:22:10 INFO  root(1):26 Employee [username=Robert, password=11211]
+2019-09-30 14:22:17 INFO  root(1):26 chose 1
+2019-09-30 16:17:50 INFO  root(1):26 Employee [username=Robert, password=11211]
+2019-09-30 16:17:50 INFO  root(1):26 Employee [username=Robert, password=11211]
+2019-09-30 16:18:31 INFO  root(1):26 reached pass succesfully
+2019-09-30 16:18:33 INFO  root(1):26 Employee [username=Robert, password=11211]
+2019-09-30 16:18:48 INFO  root(1):26 chose 1
+2019-09-30 16:19:17 INFO  root(1):26 reached pass succesfully
+2019-09-30 16:19:30 INFO  root(1):26 reached pass succesfully
+2019-09-30 16:19:36 INFO  root(1):26 chose 1
+2019-09-30 16:22:18 INFO  root(1):26 reached pass succesfully
+2019-09-30 16:22:19 INFO  root(1):26 Employee [username=Robert, password=11211]
+2019-09-30 16:22:24 INFO  root(1):26 reached pass succesfully
+2019-09-30 16:22:25 INFO  root(1):26 Employee [username=Robert, password=11211]
+2019-09-30 16:22:56 INFO  root(1):26 reached pass succesfully
+2019-09-30 16:22:57 INFO  root(1):26 Employee [username=Robert, password=11211]
+2019-09-30 16:22:59 INFO  root(1):26 chose 1
+2019-09-30 16:23:33 INFO  root(1):26 reached pass succesfully
+2019-09-30 16:23:35 INFO  root(1):26 Employee [username=Robert, password=11211]
+2019-09-30 16:23:38 INFO  root(1):26 chose 1
+2019-09-30 16:23:58 INFO  root(1):26 reached pass succesfully
+2019-09-30 16:24:02 INFO  root(1):26 chose 1
+2019-09-30 16:34:44 INFO  root(1):26 reached pass succesfully
+2019-09-30 16:34:46 INFO  root(1):26 Employee [username=Robert, password=11211]
+2019-09-30 16:34:50 INFO  root(1):26 chose 2
+2019-09-30 16:35:02 INFO  root(1):26 chose 6
+2019-09-30 16:35:25 INFO  root(1):26 reached pass succesfully
+2019-09-30 16:35:27 INFO  root(1):26 chose 1
+2019-09-30 16:36:10 INFO  root(1):26 reached pass succesfully
+2019-09-30 16:36:12 INFO  root(1):26 Employee [username=Robert, password=11211]
+2019-09-30 16:36:17 INFO  root(1):26 chose 2
+2019-09-30 16:36:24 INFO  root(1):26 chose 6
+2019-09-30 16:36:27 INFO  root(1):26 reached pass succesfully
+2019-09-30 16:37:06 INFO  root(1):26 reached pass succesfully
+2019-09-30 16:37:11 INFO  root(1):26 chose 1
+2019-09-30 16:40:47 INFO  root(1):26 reached pass succesfully
+2019-09-30 16:40:54 INFO  root(1):26 chose 5
+2019-09-30 16:41:00 INFO  root(1):26 reached pass succesfully
+2019-09-30 16:41:01 INFO  root(1):26 Employee [username=Robert, password=11211]
+2019-09-30 16:42:52 INFO  root(1):26 reached pass succesfully
+2019-09-30 16:42:56 INFO  root(1):26 chose 5
+2019-09-30 16:42:59 INFO  root(1):26 reached pass succesfully
+2019-09-30 16:43:01 INFO  root(1):26 Employee [username=Robert, password=11211]
+2019-09-30 16:45:29 INFO  root(1):26 reached pass succesfully
+2019-09-30 16:45:30 INFO  root(1):26 Employee [username=Robert, password=11211]
+2019-09-30 16:45:31 INFO  root(1):26 chose 1
+2019-09-30 16:45:51 INFO  root(1):26 chose 6
+2019-09-30 16:45:54 INFO  root(1):26 reached pass succesfully

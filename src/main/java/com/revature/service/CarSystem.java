@@ -19,14 +19,23 @@ import static com.revature.util.LoggerUtil.*;
 
 public class CarSystem implements CarSystemInterface {
 	Scanner scanner = new Scanner(System.in);
-
-	@Override
-	public void checkMain(String s) {
-		if (s.contentEquals("main")) {
-			showMenu();
-		}
+	//CarSystemMenu carSysMenu = new CarSystemMenu();
+	
+	public String loginUsername() {
+		System.out.println("Enter username. \nTo return to the main menu, type main ");
+		String username = scanner.nextLine();
+		//checkMain(username);
+		return username;
 	}
-
+	
+	public String loginPassword() {
+		System.out.println("Enter password. \nTo return to the main menu, type main ");
+		info("reached pass succesfully");
+		String password = scanner.nextLine();
+		//checkMain(password);
+		return password;
+	}
+	
 	@Override
 	public void createCustomer() {
 		List<Customer> customerList = getCustomerList();
@@ -50,44 +59,11 @@ public class CarSystem implements CarSystemInterface {
 
 	}
 	
+
 	@Override
 	public void createEmployee() {
 		;
-		
-	}
 
-	@Override
-	public String loginUsername() {
-		System.out.println("Enter username. \nTo return to the main menu, type main ");
-		String username = scanner.nextLine();
-		checkMain(username);
-		return username;
-	}
-
-	@Override
-	public String loginPassword() {
-		System.out.println("Enter password. \nTo return to the main menu, type main ");
-		info("reached pass succesfully");
-		String password = scanner.nextLine();
-		checkMain(password);
-		return password;
-	}
-
-	@Override
-	public int showMenu() {
-		System.out.println("If you would like to register as a customer, press 1." + "\n"
-				+ "If you are a customer, press 2." + "\n" + "If you are an employee, press 3.");
-		String choice = scanner.nextLine();
-		if (choice.contentEquals("1") || choice.contentEquals("2") || choice.contentEquals("3")) {
-			info("chose " + choice);
-			return Integer.parseInt(choice);
-		} else {
-			System.out.println("Did not pick 1, 2, or 3. \nPlease pick 1, 2, or 3");
-			info("did not choose 1 2 or 3");
-			showMenu();
-		}
-
-		return Integer.parseInt(choice);
 	}
 
 	@Override
@@ -129,52 +105,20 @@ public class CarSystem implements CarSystemInterface {
 	public Map getEmployeeUserAndPass() {
 		List<Employee> customerList = getEmployeeList();
 		Map<String, String> userAndPass = new HashMap<>();
+		
 		for (Employee c : customerList) {
+			info(c.toString());
 			userAndPass.put(c.getUsername(), c.getPassword());
 		}
 		return userAndPass;
 	}
 
 	@Override
-	public int showEmployeeMenu() {	
-		String choice;
-		System.out.println("Would you like to: 1. Add a car to the lot" + 
-				"\n 2. Remove a car from the lot \n3. Accept an offer \n4. Reject an offer" + 
-				"\n5. View all payments for a car \n6. Go back to main menu");
-		choice = scanner.nextLine();
-		if (choice.contentEquals("1") || choice.contentEquals("2") || choice.contentEquals("3") ||
-			choice.contentEquals("4") || choice.contentEquals("5") || choice.contentEquals("6")) {
-			info("chose " + choice);
-			return Integer.parseInt(choice);
-		} else {
-			System.out.println("Did not pick a number between 1 and 6 \nPlease pick a number 1-6");
-			info("did not choose 1-6");
-			showMenu();
-		}
-		return Integer.parseInt(choice);
-	}
-
-	@Override
-	public int showCustomerMenu() {
-		String choice;
-		System.out.println("Would you like to: 1.View cars \n2.Make offer" + 
-		"\n3. View Cars \n4. View remaining payments \n5. Go back to main menu");
-		choice = scanner.nextLine();
-		if (choice.contentEquals("1") || choice.contentEquals("2") || choice.contentEquals("3") ||
-			choice.contentEquals("4") || choice.contentEquals("5")) {
-			info("chose " + choice);
-			return Integer.parseInt(choice);
-		}
-		return Integer.parseInt(choice);
-
-	}
-
-	@Override
 	public boolean customerLogin(String username, String password) {
 		Map<String, String> userAndPass = getCustomerUserAndPass();
-		
+
 		if (userAndPass.containsKey(username)) {
-			
+
 			String pass = userAndPass.get(username);
 			if (password.contentEquals(pass)) {
 				return true;
@@ -182,20 +126,20 @@ public class CarSystem implements CarSystemInterface {
 				System.out.println("Incorrect password");
 				return false;
 			}
-			
+
 		} else {
 			System.out.println("Incorrect username");
 			return false;
 		}
-		
+
 	}
 
 	@Override
 	public boolean employeeLogin(String username, String password) {
 		Map<String, String> userAndPass = getEmployeeUserAndPass();
-		
+
 		if (userAndPass.containsKey(username)) {
-			
+
 			String pass = userAndPass.get(username);
 			if (password.contentEquals(pass)) {
 				return true;
@@ -203,7 +147,7 @@ public class CarSystem implements CarSystemInterface {
 				System.out.println("Incorrect password");
 				return false;
 			}
-			
+
 		} else {
 			System.out.println("Incorrect username");
 			return false;
@@ -214,15 +158,14 @@ public class CarSystem implements CarSystemInterface {
 	public double calculateMonthlyPayment(Car car) {
 		// TODO Auto-generated method stub
 		double monthlyPayment = 0;
+		monthlyPayment = car.getAcceptedOffer() / 12;
 		return monthlyPayment;
 	}
 
 	@Override
 	public void rejectPendingOffer(Car car) {
 		// TODO Auto-generated method stub
-		car.setOffers(new HashMap<Double, Customer>()); 
+		car.setOffers(new HashMap<Double, Customer>());
 	}
-
-	
 
 }

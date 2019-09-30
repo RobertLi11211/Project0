@@ -8,7 +8,7 @@ public class Car implements Serializable{
 	
 	private String vin;	
 	private Map<Double, Customer> offers = new HashMap<>();
-	private double acceptedOffer;
+	private double acceptedOffer = 0;
 	private String make;
 	private String model;
 	private String color;

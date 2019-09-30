@@ -20,6 +20,7 @@ import com.revature.pojos.Car;
 import com.revature.pojos.Customer;
 import com.revature.pojos.Employee;
 import com.revature.service.CarSystem;
+import com.revature.service.CarSystemMenu;
 
 public class CarSystemTest {
 	CarSystem carSys;
@@ -27,6 +28,7 @@ public class CarSystemTest {
 	Employee e = new Employee();
 	Customer cust = new Customer();
 	double offer;
+	CarSystemMenu carSysMenu;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -38,6 +40,7 @@ public class CarSystemTest {
 	@Before
 	public void setUp() throws Exception {
 		carSys = new CarSystem();
+		carSysMenu = new CarSystemMenu();
 		cust = new Customer();
 		car = new Car();
 		offer = 12345.6;
@@ -52,12 +55,12 @@ public class CarSystemTest {
 
 	@Test
 	public void testLogInUsername() {
-		assertEquals("The username should be Robert", "Robert", carSys.loginUsername());
+		assertEquals("The username should be Robert", "Robert", carSysMenu.loginUsername());
 	}
 	
 	@Test
 	public void testLogInPassword() {
-		assertEquals("The password should be 11211", "11211", carSys.loginPassword());
+		assertEquals("The password should be 11211", "11211", carSysMenu.loginPassword());
 	}
 	
 	/*
@@ -105,5 +108,25 @@ public class CarSystemTest {
 	public void testRejectOffer() {
 		e.rejectOffer(offer, cust, car);
 		assertEquals("There should be no pending offers", new HashMap<Double, Customer>(), car.getOffers());
+	}
+	
+	@Test
+	public void testCorrectVIN() {
+		assertTrue("This should return true", carSysMenu.checkVin("realVin"));
+	}
+	
+	@Test
+	public void testFalseVin() {
+		assertFalse("This should return false", carSysMenu.checkVin("DontUseThis"));
+	}
+	
+	@Test
+	public void testCorrectUsername() {
+		assertTrue("This should return true", carSysMenu.checkUsername("Robert"));
+	}
+	
+	@Test
+	public void testFalseUsername() {
+		assertFalse("This should return false", carSysMenu.checkUsername("DontUseThis"));
 	}
 }

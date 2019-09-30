@@ -3,6 +3,7 @@ package com.revature.pojos;
 import java.util.List;
 
 public interface EmployeeInterface {
+	
 	public void addCar(Car c);
 	
 	public void acceptOffer(double offer, Customer cust, Car c);
