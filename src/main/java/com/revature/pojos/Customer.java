@@ -29,6 +29,16 @@ public class Customer implements Serializable, CustomerInterface {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	
+
+	public List<String> getCarVINs() {
+		return carVINs;
+	}
+
+	public void setCarVINs(List<String> carVINs) {
+		this.carVINs = carVINs;
+	}
 
 	public Customer() {
 		super();
@@ -96,12 +106,6 @@ public class Customer implements Serializable, CustomerInterface {
 	}
 
 	@Override
-	public double makeOffer(double offer, String vin) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public List<Car> viewMyCars() {
 		// TODO Auto-generated method stub
 		List<Car> myCars = new ArrayList<>();
@@ -109,9 +113,8 @@ public class Customer implements Serializable, CustomerInterface {
 		if (this.carVINs == null) {
 			System.out.println("You own no cars");
 			return null;
-		}
-		else {
-			for (String vin: carVINs) {
+		} else {
+			for (String vin : carVINs) {
 				myCars.add(carDAO.readCar(vin));
 			}
 		}
@@ -121,13 +124,36 @@ public class Customer implements Serializable, CustomerInterface {
 	@Override
 	public double viewRemainingPayment(Car c) {
 		// TODO Auto-generated method stub
-		return 0;
+
+		return c.getRemainingPayment();
 	}
 
 	@Override
-	public void makePayment(double payment) {
-		// TODO Auto-generated method stub
+	public void makePayment(double payment, Car c) {
+		List<Car> myCars = viewMyCars();
+		if (myCars.contains(c)) {
+			double remainingPayment = c.getRemainingPayment();
+			remainingPayment -= payment;
+			if (remainingPayment <= 0) {
+				System.out.println("Car is paid off");
+			}
+			c.setRemainingPayment(remainingPayment);
+		} else {
+			System.out.println("Not your car");
+		}
 
+	}
+
+	@Override
+	public Map<Double, Customer> makeOffer(double offer, Car c) {
+		if (c.getAcceptedOffer() != 0) {
+			Map<Double, Customer> carOffers = c.getOffers();
+			carOffers.put(offer, this);
+			return carOffers;
+		} else {
+			System.out.println("Car has already been bought");
+			return null;
+		}
 	}
 
 }

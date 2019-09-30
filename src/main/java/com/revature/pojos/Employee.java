@@ -1,7 +1,13 @@
 package com.revature.pojos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import com.revature.dao.CarDAOSerialization;
+import com.revature.dao.CarLotDAOSerialization;
+import com.revature.service.CarSystem;
 
 public class Employee implements Serializable, EmployeeInterface {
 	
@@ -66,22 +72,47 @@ public class Employee implements Serializable, EmployeeInterface {
 	@Override
 	public void addCar(Car c) {
 		// TODO Auto-generated method stub
+		Car car = new Car(c.getVin(), c.getMake(), c.getModel(), c.getColor());
+		CarDAOSerialization carDAO = new CarDAOSerialization(); carDAO.createCar(car);
+		CarLotDAOSerialization carLotDAO = new CarLotDAOSerialization();
+		List <String> carLotName = new ArrayList<>();
+		carLotName.add(car.getVin());
+		carLotDAO.createCarLot(carLotName);
+	}
+	@Override
+	public void acceptOffer(double offer, Customer cust, Car c) {
+		c.setAcceptedOffer(offer);
+		CarSystem carSys = new CarSystem();
+		carSys.rejectPendingOffer(c);
+		List<String> custVINs = cust.getCarVINs();
+		custVINs.add(c.getVin());
+		cust.setCarVINs(custVINs);
 		
 	}
 	@Override
-	public void acceptOffer(double offer, String username) {
+	public void rejectOffer(double offer, Customer cust, Car c) {
 		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void rejectOffer(double offer, String username) {
-		// TODO Auto-generated method stub
-		
+		Map<Double, Customer> offers = c.getOffers();
+		if (offers.containsValue(cust)) {
+			offers.remove(offer, cust);
+		}
+		c.setOffers(offers);
 	}
 	@Override
 	public List<Double> viewPayments(Car c) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Double> payments = c.getPayments();
+		return payments;
+	}
+	@Override
+	public void removeCar(Car c) {
+		String vin = c.getVin();
+		CarLotDAOSerialization cLotDAO = new CarLotDAOSerialization();
+		List<String> carLot = cLotDAO.readCarLotList();
+		if (carLot.contains(vin)) {
+			carLot.remove(vin);
+		} else {
+			System.out.println("lot does not contain a car with that vin");
+		}
 	}
 	
 	

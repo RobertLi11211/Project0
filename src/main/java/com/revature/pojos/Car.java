@@ -7,7 +7,7 @@ import java.util.Map;
 public class Car implements Serializable{
 	
 	private String vin;	
-	private Map<Double, Offer> offers = new HashMap<>();
+	private Map<Double, Customer> offers = new HashMap<>();
 	private double acceptedOffer;
 	private String make;
 	private String model;
@@ -21,10 +21,10 @@ public class Car implements Serializable{
 	public void setVin(String vin) {
 		this.vin = vin;
 	}
-	public Map<Double, Offer> getOffers() {
+	public Map<Double, Customer> getOffers() {
 		return offers;
 	}
-	public void setOffers(Map<Double, Offer> offers) {
+	public void setOffers(Map<Double, Customer> offers) {
 		this.offers = offers;
 	}
 	public double getAcceptedOffer() {
@@ -58,6 +58,14 @@ public class Car implements Serializable{
 	}
 	public void setRemainingPayment(double remainingPayment) {
 		this.remainingPayment = remainingPayment;
+	}
+	
+	
+	public List<Double> getPayments() {
+		return payments;
+	}
+	public void setPayments(List<Double> payments) {
+		this.payments = payments;
 	}
 	@Override
 	public int hashCode() {
@@ -111,10 +119,12 @@ public class Car implements Serializable{
 			return false;
 		return true;
 	}
+	
 	@Override
 	public String toString() {
 		return "Car [vin=" + vin + ", offers=" + offers + ", acceptedOffer=" + acceptedOffer + ", make=" + make
-				+ ", model=" + model + ", color=" + color + "]";
+				+ ", model=" + model + ", color=" + color + ", payments=" + payments + ", remainingPayment="
+				+ remainingPayment + "]";
 	}
 	public Car(String vin, String make, String model, String color) {
 		super();

@@ -37,7 +37,7 @@ public interface CarSystemInterface {
 	
 	public boolean employeeLogin(String username, String password);
 	
-	public void showEmployeeMenu();
+	public int showEmployeeMenu();
 	
-	public void showCustomerMenu();
+	public int showCustomerMenu();
 }

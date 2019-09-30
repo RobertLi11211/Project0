@@ -7,12 +7,12 @@ public interface CustomerInterface {
 	
 	public List<Car> getCarLot();
 		
-	public double makeOffer(double offer, String vin);
+	public Map<Double, Customer> makeOffer(double offer, Car c);
 	
 	public List<Car> viewMyCars();
 	
 	public double viewRemainingPayment(Car c);
 	
-	public void makePayment(double payment);
+	public void makePayment(double payment, Car c);
 	
 }

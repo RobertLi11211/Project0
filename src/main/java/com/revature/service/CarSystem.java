@@ -136,13 +136,36 @@ public class CarSystem implements CarSystemInterface {
 	}
 
 	@Override
-	public void showEmployeeMenu() {
-		
+	public int showEmployeeMenu() {	
+		String choice;
+		System.out.println("Would you like to: 1. Add a car to the lot" + 
+				"\n 2. Remove a car from the lot \n3. Accept an offer \n4. Reject an offer" + 
+				"\n5. View all payments for a car \n6. Go back to main menu");
+		choice = scanner.nextLine();
+		if (choice.contentEquals("1") || choice.contentEquals("2") || choice.contentEquals("3") ||
+			choice.contentEquals("4") || choice.contentEquals("5") || choice.contentEquals("6")) {
+			info("chose " + choice);
+			return Integer.parseInt(choice);
+		} else {
+			System.out.println("Did not pick a number between 1 and 6 \nPlease pick a number 1-6");
+			info("did not choose 1-6");
+			showMenu();
+		}
+		return Integer.parseInt(choice);
 	}
 
 	@Override
-	public void showCustomerMenu() {
-		// TODO Auto-generated method stub
+	public int showCustomerMenu() {
+		String choice;
+		System.out.println("Would you like to: 1.View cars \n2.Make offer" + 
+		"\n3. View Cars \n4. View remaining payments \n5. Go back to main menu");
+		choice = scanner.nextLine();
+		if (choice.contentEquals("1") || choice.contentEquals("2") || choice.contentEquals("3") ||
+			choice.contentEquals("4") || choice.contentEquals("5")) {
+			info("chose " + choice);
+			return Integer.parseInt(choice);
+		}
+		return Integer.parseInt(choice);
 
 	}
 
@@ -197,7 +220,7 @@ public class CarSystem implements CarSystemInterface {
 	@Override
 	public void rejectPendingOffer(Car car) {
 		// TODO Auto-generated method stub
-
+		car.setOffers(new HashMap<Double, Customer>()); 
 	}
 
 	

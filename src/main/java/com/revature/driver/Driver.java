@@ -37,23 +37,25 @@ public class Driver {
 		 * cListName.add(robert.getUsername()); cListDAO.createCustomerList(cListName);
 		 */
 		
-		Car car = new Car("realVin", "Mazda 3", "Hatchback", "white");
-		CarDAOSerialization carDAO = new CarDAOSerialization(); carDAO.createCar(car);
-		CarLotDAOSerialization carLotDAO = new CarLotDAOSerialization();
-		List <String> carLotName = new ArrayList<>();
-		carLotName.add(car.getVin());
-		carLotDAO.createCarLot(carLotName);
+		/*
+		 * Car car = new Car("realVin", "Mazda 3", "Hatchback", "white");
+		 * CarDAOSerialization carDAO = new CarDAOSerialization();
+		 * carDAO.createCar(car); CarLotDAOSerialization carLotDAO = new
+		 * CarLotDAOSerialization(); List <String> carLotName = new ArrayList<>();
+		 * carLotName.add(car.getVin()); carLotDAO.createCarLot(carLotName);
+		 */
 
 		int loginChoice = carSys.showMenu();
+		String username;
 		if (loginChoice == 1) {
 			carSys.createCustomer();
 			carSys.showMenu();
 		}else if (loginChoice == 2) {
-			String username = carSys.loginUsername();
+			username = carSys.loginUsername();
 			String password = carSys.loginPassword();
 			boolean custLogin = carSys.customerLogin(username, password);
 		}else if (loginChoice == 3) {
-			String username = carSys.loginUsername();
+			username = carSys.loginUsername();
 			String password = carSys.loginPassword();
 			boolean empLogin = carSys.employeeLogin(username, password);
 		}

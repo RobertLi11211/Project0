@@ -13,10 +13,20 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.revature.pojos.Car;
+import com.revature.pojos.Customer;
+import com.revature.pojos.Employee;
 import com.revature.service.CarSystem;
 
 public class CarSystemTest {
 	CarSystem carSys;
+	Car car;
+	Employee e = new Employee();
+	Customer cust = new Customer();
+	double offer;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -28,6 +38,12 @@ public class CarSystemTest {
 	@Before
 	public void setUp() throws Exception {
 		carSys = new CarSystem();
+		cust = new Customer();
+		car = new Car();
+		offer = 12345.6;
+		Map<Double, Customer> newMap = new HashMap<>();
+		newMap.put(12345.6, cust);
+		car.setOffers(newMap);
 	}
 
 	@After
@@ -77,5 +93,17 @@ public class CarSystemTest {
 	@Test
 	public void testEmployeeLoginWrongUsername() {
 		assertFalse("This should return false", carSys.employeeLogin("Robert1", "11211"));
+	}
+	
+	@Test
+	public void testRejectPendingOffer() {
+		carSys.rejectPendingOffer(car);
+		assertEquals("There should be no pending offers", new HashMap<Double, Customer>(), car.getOffers());
+	}
+	
+	@Test
+	public void testRejectOffer() {
+		e.rejectOffer(offer, cust, car);
+		assertEquals("There should be no pending offers", new HashMap<Double, Customer>(), car.getOffers());
 	}
 }
