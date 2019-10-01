@@ -50,27 +50,9 @@ public class Driver {
 		 * carLotName.add(testCar.getVin()); carLotDAO.createCarLot(carLotName);
 		 */
 
-		// declaring variables
-		String username = "";
-		Customer cust = null;
-		Employee emp = null;
-		Car car;
+		
 
-		// Actual code starts here
-
-		List<String> menuChoice = new ArrayList<>();
-		menuChoice = carSysMenu.showMenu();
-		String type = menuChoice.get(0);
-		username = menuChoice.get(1);
-		int customerChoice = 0;
-		int employeeChoice = 0;
-		if (type.contentEquals("customer")) {
-			carSysMenu.showCustomerMenu(username);
-			// cust = custDAO.readCustomer(username);
-		} else if (type.contentEquals("employee")) {
-			carSysMenu.showEmployeeMenu(username);
-			// emp = eDAO.readEmployee(username);
-		}
+		carSysMenu.showMenu();
 
 		/*
 		 * if (customerChoice == 1) { List<Car> CarLot = cust.getCarLot(); }else if

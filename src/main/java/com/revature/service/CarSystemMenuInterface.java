@@ -15,7 +15,7 @@ public interface CarSystemMenuInterface {
 	
 	public void checkMain(String s);
 	
-	public List<String> showMenu();
+	public void showMenu();
 	
 	public void showEmployeeMenu(String username);
 	

@@ -17,7 +17,7 @@ import com.revature.dao.EmployeeDAOSerialization;
 
 public class CarSystemMenu implements CarSystemMenuInterface {
 	// This class contains all the menus
-	Scanner scanner = new Scanner(System.in);
+	
 
 	// DAOs
 	CarDAOSerialization carDAO = new CarDAOSerialization();
@@ -26,8 +26,9 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 	CustomerDAOSerialization custDAO = new CustomerDAOSerialization();
 	EmployeeDAOSerialization empDAO = new EmployeeDAOSerialization();
 
-	// Instantiating variables
+	// Creating objects
 	CarSystem carSys = new CarSystem();
+	Scanner scanner = new Scanner(System.in);
 	/*
 	 * String vin; String username; boolean custLogin; Customer c; boolean empLogin;
 	 */
@@ -77,7 +78,7 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 	}
 
 	@Override
-	public List<String> showMenu() {
+	public void showMenu() {
 		System.out.println("If you would like to register as a customer, press 1." + "\n"
 				+ "If you are a customer, press 2." + "\n" + "If you are an employee, press 3.");
 		String choice = scanner.nextLine();
@@ -89,15 +90,16 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 		if (loginChoice == 1) {
 			carSys.createCustomer();
 			showMenu();
-			return null;
+			
 		} else if (loginChoice == 2) {
 			username = loginUsername();
 			String password = loginPassword();
 			custLogin = carSys.customerLogin(username, password);
 			if (custLogin) {
-				ret.add("customer");
-				ret.add(username);
-				return ret;
+				showCustomerMenu(username);
+				/*
+				 * ret.add("customer"); ret.add(username); return ret;
+				 */
 			} else {
 				System.out.println("Incorrect username/password");
 				showMenu();
@@ -108,9 +110,10 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 			String password = loginPassword();
 			empLogin = carSys.employeeLogin(username, password);
 			if (empLogin) {
-				ret.add("employee");
-				ret.add(username);
-				return ret;
+				showEmployeeMenu(username);
+				/*
+				 * ret.add("employee"); ret.add(username); return ret;
+				 */
 			} else {
 				System.out.println("Incorrect username/password");
 				showMenu();
@@ -119,7 +122,7 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 		} else {
 			System.out.println("Please input 1, 2, or 3");
 			showMenu();
-			return null;
+			
 		}
 		
 		String type = ret.get(0);
@@ -133,8 +136,7 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 			showEmployeeMenu(username);
 			// emp = eDAO.readEmployee(username);
 		}
-		return null;
-
+		
 	}
 
 	@Override
