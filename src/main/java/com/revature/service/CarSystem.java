@@ -165,7 +165,7 @@ public class CarSystem implements CarSystemInterface {
 	@Override
 	public void rejectPendingOffer(Car car) {
 		// TODO Auto-generated method stub
-		car.setOffers(new HashMap<Double, Customer>());
+		car.setOffers(new HashMap<Double, String>());
 	}
 
 }

@@ -7,7 +7,7 @@ import java.util.Map;
 public class Car implements Serializable{
 	
 	private String vin;	
-	private Map<Double, Customer> offers = new HashMap<>();
+	private Map<Double, String> offers = new HashMap<>();
 	private double acceptedOffer = 0;
 	private String make;
 	private String model;
@@ -21,10 +21,10 @@ public class Car implements Serializable{
 	public void setVin(String vin) {
 		this.vin = vin;
 	}
-	public Map<Double, Customer> getOffers() {
+	public Map<Double, String> getOffers() {
 		return offers;
 	}
-	public void setOffers(Map<Double, Customer> offers) {
+	public void setOffers(Map<Double, String> offers) {
 		this.offers = offers;
 	}
 	public double getAcceptedOffer() {

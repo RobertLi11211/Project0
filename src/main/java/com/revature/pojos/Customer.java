@@ -8,11 +8,17 @@ import java.util.Map;
 
 import com.revature.dao.CarDAOSerialization;
 import com.revature.dao.CarLotDAOSerialization;
+import static com.revature.util.LoggerUtil.*;
 
 public class Customer implements Serializable, CustomerInterface {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
 	private List<String> carVINs = new ArrayList<>();
+	
 
 	public String getUsername() {
 		return username;
@@ -107,8 +113,11 @@ public class Customer implements Serializable, CustomerInterface {
 		}
 		for (Car car: ret) {
 			System.out.println("VIN: " + car.getVin() + "\nMake: " + car.getMake() + 
-					"\nModel: " + car.getModel() + "\nColor: " + car.getColor());			
+					"\nModel: " + car.getModel() + "\nColor: " + car.getColor() + 
+					"\nOffers: " + car.getOffers());	
+			System.out.println(" ");
 		}
+		System.out.println("\n");
 		return ret;
 	}
 
@@ -156,15 +165,22 @@ public class Customer implements Serializable, CustomerInterface {
 	}
 
 	@Override
-	public Map<Double, Customer> makeOffer(double offer, Car c) {
-		if (c.getAcceptedOffer() != 0) {
-			Map<Double, Customer> carOffers = c.getOffers();
-			carOffers.put(offer, this);
-			return carOffers;
+	public Car makeOffer(double offer, Car c) {
+		CarDAOSerialization carDAO = new CarDAOSerialization();
+		if (c.getAcceptedOffer() == 0) {
+			Map<Double, String> carOffers = c.getOffers();
+			info("" + carOffers);
+			carOffers.put(offer, getUsername());
+			info("" + carOffers); 
+			c.setOffers(carOffers);
+			info("" + c.getOffers());
+			carDAO.createCar(c);
+			return c;
 		} else {
 			System.out.println("Car has already been bought");
-			return null;
+			return c;
 		}
+		
 	}
 
 }

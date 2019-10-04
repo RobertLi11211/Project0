@@ -7,7 +7,7 @@ public interface CustomerInterface {
 	
 	public List<Car> getCarLot();
 		
-	public Map<Double, Customer> makeOffer(double offer, Car c);
+	public Car makeOffer(double offer, Car c);
 	
 	public List<Car> viewMyCars();
 	

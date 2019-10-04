@@ -44,8 +44,8 @@ public class CarSystemTest {
 		cust = new Customer();
 		car = new Car();
 		offer = 12345.6;
-		Map<Double, Customer> newMap = new HashMap<>();
-		newMap.put(12345.6, cust);
+		Map<Double, String> newMap = new HashMap<>();
+		newMap.put(12345.6, cust.getUsername());
 		car.setOffers(newMap);
 	}
 

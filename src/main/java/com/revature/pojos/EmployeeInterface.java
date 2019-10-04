@@ -6,9 +6,9 @@ public interface EmployeeInterface {
 	
 	public void addCar(Car c);
 	
-	public void acceptOffer(double offer, Customer cust, Car c);
+	public Car acceptOffer(double offer, Customer cust, Car c);
 	
-	public void rejectOffer(double offer, Customer cust, Car c);
+	public Car rejectOffer(double offer, Customer cust, Car c);
 	
 	public List<Double> viewPayments(Car c);
 	

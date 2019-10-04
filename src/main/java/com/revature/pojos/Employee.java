@@ -11,7 +11,10 @@ import com.revature.dao.CarLotDAOSerialization;
 import com.revature.service.CarSystem;
 
 public class Employee implements Serializable, EmployeeInterface {
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;	
 	private String username;
 	private String password;
 
@@ -80,9 +83,8 @@ public class Employee implements Serializable, EmployeeInterface {
 
 	@Override
 	public void addCar(Car c) {
-		// TODO Auto-generated method stub
-		Car car = new Car(c.getVin(), c.getMake(), c.getModel(), c.getColor());
 		CarDAOSerialization carDAO = new CarDAOSerialization();
+		Car car = new Car(c.getVin(), c.getMake(), c.getModel(), c.getColor());		
 		carDAO.createCar(car);
 		CarLotDAOSerialization carLotDAO = new CarLotDAOSerialization();
 		List<String> carLotName = carLotDAO.readCarLotList();
@@ -91,7 +93,8 @@ public class Employee implements Serializable, EmployeeInterface {
 	}
 
 	@Override
-	public void acceptOffer(double offer, Customer cust, Car c) {
+	public Car acceptOffer(double offer, Customer cust, Car c) {
+		CarDAOSerialization carDAO = new CarDAOSerialization();
 		c.setAcceptedOffer(offer);
 		c.setRemainingPayment(offer);
 		CarSystem carSys = new CarSystem();
@@ -99,17 +102,21 @@ public class Employee implements Serializable, EmployeeInterface {
 		List<String> custVINs = cust.getCarVINs();
 		custVINs.add(c.getVin());
 		cust.setCarVINs(custVINs);
-
+		carDAO.createCar(c);
+		return c;
+		
 	}
 
 	@Override
-	public void rejectOffer(double offer, Customer cust, Car c) {
-		// TODO Auto-generated method stub
-		Map<Double, Customer> offers = c.getOffers();
+	public Car rejectOffer(double offer, Customer cust, Car c) {
+		CarDAOSerialization carDAO = new CarDAOSerialization();
+		Map<Double, String> offers = c.getOffers();
 		if (offers.containsValue(cust)) {
 			offers.remove(offer, cust);
 		}
 		c.setOffers(offers);
+		carDAO.createCar(c);
+		return c;
 	}
 
 	@Override

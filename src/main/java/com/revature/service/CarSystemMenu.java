@@ -14,6 +14,7 @@ import com.revature.dao.CarLotDAOSerialization;
 import com.revature.dao.CustomerDAOSerialization;
 import com.revature.dao.CustomerListDAOSerialization;
 import com.revature.dao.EmployeeDAOSerialization;
+import static com.revature.util.LoggerUtil.*;
 
 public class CarSystemMenu implements CarSystemMenuInterface {
 	// This class contains all the menus
@@ -80,7 +81,8 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 	@Override
 	public void showMenu() {
 		System.out.println("If you would like to register as a customer, press 1." + "\n"
-				+ "If you are a customer, press 2." + "\n" + "If you are an employee, press 3.");
+				+ "If you are a customer, press 2." + "\n" + "If you are an employee, press 3."
+				+ "\nIf you would like to exit, press 4.");
 		String choice = scanner.nextLine();
 		int loginChoice = Integer.parseInt(choice);
 		List<String> ret = new ArrayList<>();
@@ -118,9 +120,13 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 				System.out.println("Incorrect username/password");
 				showMenu();
 			}
+			
 
-		} else {
-			System.out.println("Please input 1, 2, or 3");
+		} else if (loginChoice == 4) {
+			System.exit(0);
+		}
+		else {
+			System.out.println("Please input 1, 2, 3, or 4");
 			showMenu();
 			
 		}
@@ -176,15 +182,19 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 			vin = theOffer[0];
 			username = theOffer[1];
 			double offer = Double.parseDouble(theOffer[2]);
-			e.acceptOffer(offer, custDAO.readCustomer(username), carDAO.readCar(vin));
+			car = carDAO.readCar(vin);
+			car = e.acceptOffer(offer, custDAO.readCustomer(username), car);
 			showEmployeeMenu(e.getUsername());
+			System.out.println("Offer accepted!");
 		} else if (employeeChoice == 4) {
 			String[] theOffer = showOffersMenu();
 			vin = theOffer[0];
 			username = theOffer[1];
 			double offer = Double.parseDouble(theOffer[2]);
-			e.rejectOffer(offer, custDAO.readCustomer(username), carDAO.readCar(vin));
+			car = carDAO.readCar(vin);
+			car = e.rejectOffer(offer, custDAO.readCustomer(username), car);
 			showEmployeeMenu(e.getUsername());
+			System.out.println("Offer rejected");
 		} else if (employeeChoice == 5) {
 			System.out.println("Please enter the VIN for the car you wish to view: ");
 			vin = scanner.nextLine();
@@ -201,7 +211,7 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 	public void showCustomerMenu(String username) {
 		String choice;
 		Customer cust = custDAO.readCustomer(username);
-		System.out.println("Would you like to: \n1.View Car Lot \n2. Make offer"
+		System.out.println("Would you like to: \n1. View Car Lot \n2. Make offer"
 				+ "\n3. View your cars \n4. View remaining payments \n5. Go back to main menu");
 		choice = scanner.nextLine();
 		if (choice.contentEquals("1") || choice.contentEquals("2") || choice.contentEquals("3")
@@ -240,7 +250,8 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 			Car car = carDAO.readCar(vin);
 			System.out.println("Please input your offer: ");
 			double offer = scanner.nextDouble();
-			cust.makeOffer(offer, car);
+			scanner.nextLine();
+			car = cust.makeOffer(offer, car);
 			System.out.println("Offer made!");
 			showCustomerMenu(cust.getUsername());
 		} else if (customerChoice == 3) {
@@ -302,19 +313,19 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 
 	@Override
 	public String[] showOffersMenu() {
+		
+		Customer cust = new Customer();
+		cust.getCarLot();
 		String[] ret = new String[3];
 		System.out.println("Please type the car's vin: ");
 		ret[0] = scanner.nextLine();
 		if (!checkVin(ret[0])) {
 			System.out.println("Incorrect vin. Try again");
-			// showOffersMenu();
+			showOffersMenu();
 		}
 		System.out.println("Please type the customer's username: ");
 		ret[1] = scanner.nextLine();
-		if (!checkVin(ret[1])) {
-			System.out.println("Incorrect username. Try again");
-			// showOffersMenu();
-		}
+		
 		System.out.println("Please type the offer amount: ");
 		ret[2] = scanner.nextLine();
 		return ret;
