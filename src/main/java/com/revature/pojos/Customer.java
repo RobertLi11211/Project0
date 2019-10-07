@@ -136,7 +136,7 @@ public class Customer implements Serializable, CustomerInterface {
 		}
 		for (Car car: myCars) {
 			System.out.println("VIN: " + car.getVin() + "\nMake: " + car.getMake() + 
-					"\nModel: " + car.getModel() + "\nColor: " + car.getColor());			
+					"\nModel: " + car.getModel() + "\nColor: " + car.getColor() + "\n");			
 		}
 		return myCars;
 	}

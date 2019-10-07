@@ -56,6 +56,8 @@ public class CarSystem implements CarSystemInterface {
 		List<String> customers = cDAO.readCustomerList();
 		customers.add(newCustomer.getUsername());
 		cDAO.createCustomerList(customers);
+		
+		System.out.println("\nAccount succesfully created. Please login again. \n");
 
 	}
 	

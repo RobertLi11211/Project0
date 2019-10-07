@@ -289,7 +289,7 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Please enter VIN number: ");
 		String vin = scanner.nextLine();
-		System.out.println("PLease enter make: ");
+		System.out.println("Please enter make: ");
 		String make = scanner.nextLine();
 		System.out.println("Please enter model: ");
 		String model = scanner.nextLine();

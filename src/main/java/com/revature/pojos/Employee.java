@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import com.revature.dao.CarDAOSerialization;
 import com.revature.dao.CarLotDAOSerialization;
+import com.revature.dao.CustomerDAOSerialization;
 import com.revature.service.CarSystem;
 
 public class Employee implements Serializable, EmployeeInterface {
@@ -95,6 +96,7 @@ public class Employee implements Serializable, EmployeeInterface {
 	@Override
 	public Car acceptOffer(double offer, Customer cust, Car c) {
 		CarDAOSerialization carDAO = new CarDAOSerialization();
+		CustomerDAOSerialization cDAO = new CustomerDAOSerialization();
 		c.setAcceptedOffer(offer);
 		c.setRemainingPayment(offer);
 		CarSystem carSys = new CarSystem();
@@ -102,6 +104,7 @@ public class Employee implements Serializable, EmployeeInterface {
 		List<String> custVINs = cust.getCarVINs();
 		custVINs.add(c.getVin());
 		cust.setCarVINs(custVINs);
+		cDAO.createCustomer(cust);
 		carDAO.createCar(c);
 		return c;
 		
