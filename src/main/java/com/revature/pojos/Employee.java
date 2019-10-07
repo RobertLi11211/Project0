@@ -12,12 +12,18 @@ import com.revature.dao.CustomerDAOSerialization;
 import com.revature.service.CarSystem;
 
 public class Employee implements Serializable, EmployeeInterface {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;	
+	private int EmployeeID;	
 	private String username;
 	private String password;
+
+		
+	public int getEmployeeID() {
+		return EmployeeID;
+	}
+
+	public void setEmployeeID(int employeeID) {
+		EmployeeID = employeeID;
+	}
 
 	public String getUsername() {
 		return username;

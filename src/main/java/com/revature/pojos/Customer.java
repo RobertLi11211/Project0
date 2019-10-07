@@ -11,14 +11,20 @@ import com.revature.dao.CarLotDAOSerialization;
 import static com.revature.util.LoggerUtil.*;
 
 public class Customer implements Serializable, CustomerInterface {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private int CustID;
 	private String username;
 	private String password;
 	private List<String> carVINs = new ArrayList<>();
 	
+	
+	
+	public int getCustID() {
+		return CustID;
+	}
+
+	public void setCustID(int custID) {
+		CustID = custID;
+	}
 
 	public String getUsername() {
 		return username;
