@@ -13,7 +13,7 @@ public interface CarSystemMenuInterface {
 	
 	public boolean checkUsername(String s);
 	
-	public void checkMain(String s);
+	public boolean checkMain(String s);
 	
 	public void showMenu();
 	

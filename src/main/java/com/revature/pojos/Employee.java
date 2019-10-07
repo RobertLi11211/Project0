@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import com.revature.dao.CarDAOSerialization;
-import com.revature.dao.CarLotDAOSerialization;
-import com.revature.dao.CustomerDAOSerialization;
-import com.revature.service.CarSystem;
 
-public class Employee implements Serializable, EmployeeInterface {
+import com.revature.service.CarSystem;
+import com.revature.sql.dao.CarSQLDAOPostgres;
+
+
+public class Employee implements EmployeeInterface {
 	private int EmployeeID;	
 	private String username;
 	private String password;
@@ -85,66 +85,41 @@ public class Employee implements Serializable, EmployeeInterface {
 
 	public Employee() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void addCar(Car c) {
-		CarDAOSerialization carDAO = new CarDAOSerialization();
-		Car car = new Car(c.getVin(), c.getMake(), c.getModel(), c.getColor());		
-		carDAO.createCar(car);
-		CarLotDAOSerialization carLotDAO = new CarLotDAOSerialization();
-		List<String> carLotName = carLotDAO.readCarLotList();
-		carLotName.add(car.getVin());
-		carLotDAO.createCarLot(carLotName);
-	}
-
-	@Override
-	public Car acceptOffer(double offer, Customer cust, Car c) {
-		CarDAOSerialization carDAO = new CarDAOSerialization();
-		CustomerDAOSerialization cDAO = new CustomerDAOSerialization();
-		c.setAcceptedOffer(offer);
-		c.setRemainingPayment(offer);
-		CarSystem carSys = new CarSystem();
-		carSys.rejectPendingOffer(c);
-		List<String> custVINs = cust.getCarVINs();
-		custVINs.add(c.getVin());
-		cust.setCarVINs(custVINs);
-		cDAO.createCustomer(cust);
+		CarSQLDAOPostgres carDAO = new CarSQLDAOPostgres();			
 		carDAO.createCar(c);
-		return c;
 		
 	}
 
 	@Override
-	public Car rejectOffer(double offer, Customer cust, Car c) {
-		CarDAOSerialization carDAO = new CarDAOSerialization();
-		Map<Double, String> offers = c.getOffers();
-		if (offers.containsValue(cust)) {
-			offers.remove(offer, cust);
-		}
-		c.setOffers(offers);
-		carDAO.createCar(c);
-		return c;
+	public void acceptOffer(double offer, Customer cust, int vin) {
+		CarSQLDAOPostgres carDAO = new CarSQLDAOPostgres();
+		carDAO.acceptOffer(offer, cust.getUsername(), vin);
+		
+		
+	}
+
+	@Override
+	public void rejectOffer(double offer, Customer cust, int vin) {
+		CarSQLDAOPostgres carDAO = new CarSQLDAOPostgres();
+		carDAO.rejectOffer(offer, cust.getUsername(), vin);
 	}
 
 	@Override
 	public List<Double> viewPayments(Car c) {
-		List<Double> payments = c.getPayments();
+		CarSQLDAOPostgres carDao = new CarSQLDAOPostgres();
+		List<Double> payments = carDao.getPayments(c.getVin());
 		return payments;
 	}
 
 	@Override
 	public void removeCar(Car c) {
-		String vin = c.getVin();
-		CarLotDAOSerialization cLotDAO = new CarLotDAOSerialization();
-		List<String> carLot = cLotDAO.readCarLotList();
-		if (carLot.contains(vin)) {
-			carLot.remove(vin);
-		} else {
-			System.out.println("lot does not contain a car with that vin");
-		}
-		cLotDAO.createCarLot(carLot);
+		CarSQLDAOPostgres carDAO = new CarSQLDAOPostgres();
+		carDAO.removeCar(c.getVin());
+		
 	}
 
 }

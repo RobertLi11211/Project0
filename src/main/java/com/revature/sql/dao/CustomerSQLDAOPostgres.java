@@ -11,7 +11,7 @@ import com.revature.pojos.Car;
 import com.revature.pojos.Customer;
 import com.revature.util.ConnectionFactory;
 
-public class CustomerSQLDAOSerialization implements CustomerSQLDAO {
+public class CustomerSQLDAOPostgres implements CustomerSQLDAO {
 	private static Connection conn = ConnectionFactory.getConnection();
 
 	@Override
@@ -54,7 +54,7 @@ public class CustomerSQLDAOSerialization implements CustomerSQLDAO {
 
 	@Override
 	public List<Customer> getCustomerList() {
-		String sql = "select * from CarCustomer";
+		String sql = "select * from CarCustomers";
 		List<Customer> custList = new ArrayList<>();
 		PreparedStatement stat;
 		try {
@@ -77,17 +77,27 @@ public class CustomerSQLDAOSerialization implements CustomerSQLDAO {
 	public List<Car> getCustomerCarList(Customer c) {
 		String sql = "select vin from CustomerCarList where CustID = ?";
 		List<Car> carList = new ArrayList<>();
+		List<Integer> carVins = new ArrayList<>();
 		PreparedStatement stat;
 		Car car = new Car();
 		try {
 			stat = conn.prepareStatement(sql);
-			
-			
+			stat.setInt(1, c.getCustID());
+			ResultSet rs = stat.executeQuery();
+			while (rs.next()) {
+				carVins.add(rs.getInt(2));
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return null;
+		CarSQLDAOPostgres carDAO = new CarSQLDAOPostgres();
+		for (Integer inte: carVins) {
+			carList.add(carDAO.getCar(inte));
+		}
+
+		return carList;
 	}
 
 }

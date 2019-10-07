@@ -6,14 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.revature.dao.CarDAOSerialization;
 import com.revature.pojos.Car;
 import com.revature.pojos.Customer;
 import com.revature.pojos.Employee;
-import com.revature.dao.CarLotDAOSerialization;
-import com.revature.dao.CustomerDAOSerialization;
-import com.revature.dao.CustomerListDAOSerialization;
-import com.revature.dao.EmployeeDAOSerialization;
+import com.revature.sql.dao.CarSQLDAOPostgres;
+import com.revature.sql.dao.CustomerSQLDAOPostgres;
+import com.revature.sql.dao.EmployeeSQLDAOPostgres;
+
 import static com.revature.util.LoggerUtil.*;
 
 public class CarSystemMenu implements CarSystemMenuInterface {
@@ -21,11 +20,10 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 	
 
 	// DAOs
-	CarDAOSerialization carDAO = new CarDAOSerialization();
-	CarLotDAOSerialization carLotDAO = new CarLotDAOSerialization();
-	CustomerListDAOSerialization cListDAO = new CustomerListDAOSerialization();
-	CustomerDAOSerialization custDAO = new CustomerDAOSerialization();
-	EmployeeDAOSerialization empDAO = new EmployeeDAOSerialization();
+	CarSQLDAOPostgres carDAO = new CarSQLDAOPostgres();
+	CustomerSQLDAOPostgres custDAO = new CustomerSQLDAOPostgres();
+	EmployeeSQLDAOPostgres eDAO = new EmployeeSQLDAOPostgres();
+	
 
 	// Creating objects
 	CarSystem carSys = new CarSystem();
@@ -53,7 +51,11 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 
 	@Override
 	public boolean checkVin(String s) {
-		List<String> vins = carLotDAO.readCarLotList();
+		List<Car> cars = carDAO.getCarLot();
+		List<Integer> vins = new ArrayList<>();
+		for (Car car:cars) {
+			vins.add(car.getVin());
+		}
 		if (vins.contains(s)) {
 			return true;
 		} else {
@@ -63,7 +65,11 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 
 	@Override
 	public boolean checkUsername(String s) {
-		List<String> usernames = cListDAO.readCustomerList();
+		List<Customer> custList = custDAO.getCustomerList();		
+		List<String> usernames = new ArrayList<>();
+		for (Customer cust:custList) {
+			usernames.add(cust.getUsername());
+		}
 		if (usernames.contains(s)) {
 			return true;
 		} else {
@@ -72,9 +78,11 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 	}
 
 	@Override
-	public void checkMain(String s) {
+	public boolean checkMain(String s) {
 		if (s.contentEquals("main")) {
-			showMenu();
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -148,7 +156,7 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 	@Override
 	public void showEmployeeMenu(String username) {
 		String vin;
-		Employee e = empDAO.readEmployee(username);
+		Employee e = eDAO.getEmployee(username);
 		String choice;
 		Car car;
 		System.out.println("Would you like to: \n1. Add a car to the lot"
@@ -182,8 +190,7 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 			vin = theOffer[0];
 			username = theOffer[1];
 			double offer = Double.parseDouble(theOffer[2]);
-			car = carDAO.readCar(vin);
-			car = e.acceptOffer(offer, custDAO.readCustomer(username), car);
+			e.acceptOffer(offer, custDAO.getCustomer(username), Integer.parseInt(vin));
 			showEmployeeMenu(e.getUsername());
 			System.out.println("Offer accepted!");
 		} else if (employeeChoice == 4) {
@@ -191,14 +198,13 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 			vin = theOffer[0];
 			username = theOffer[1];
 			double offer = Double.parseDouble(theOffer[2]);
-			car = carDAO.readCar(vin);
-			car = e.rejectOffer(offer, custDAO.readCustomer(username), car);
+			e.rejectOffer(offer, custDAO.getCustomer(username), Integer.parseInt(vin));
 			showEmployeeMenu(e.getUsername());
 			System.out.println("Offer rejected");
 		} else if (employeeChoice == 5) {
 			System.out.println("Please enter the VIN for the car you wish to view: ");
 			vin = scanner.nextLine();
-			car = carDAO.readCar(vin);
+			car = carDAO.getCar(Integer.parseInt(vin));
 			System.out.println(e.viewPayments(car)); 
 			showEmployeeMenu(e.getUsername());
 		} else if (employeeChoice == 6) {
@@ -210,7 +216,7 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 	@Override
 	public void showCustomerMenu(String username) {
 		String choice;
-		Customer cust = custDAO.readCustomer(username);
+		Customer cust = custDAO.getCustomer(username);
 		System.out.println("Would you like to: \n1. View Car Lot \n2. Make offer"
 				+ "\n3. View your cars \n4. View remaining payments \n5. Go back to main menu");
 		choice = scanner.nextLine();
@@ -231,7 +237,7 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 			showCustomerMenu(cust.getUsername());
 		} else if (customerChoice == 2) {
 			List<Car> carLot = cust.getCarLot();
-			List<String> vins = new ArrayList<>();
+			List<Integer> vins = new ArrayList<>();
 			for (Car c : carLot) {
 				vins.add(c.getVin());
 			}
@@ -247,7 +253,7 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 				vin = scanner.nextLine();
 			}
 
-			Car car = carDAO.readCar(vin);
+			Car car = carDAO.getCar(Integer.parseInt(vin));
 			System.out.println("Please input your offer: ");
 			double offer = scanner.nextDouble();
 			scanner.nextLine();
@@ -259,7 +265,7 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 			showCustomerMenu(cust.getUsername());
 		} else if (customerChoice == 4) {
 			List<Car> myCars = cust.viewMyCars();
-			List<String> vins = new ArrayList<>();
+			List<Integer> vins = new ArrayList<>();
 			for (Car c : myCars) {
 				vins.add(c.getVin());
 			}
@@ -275,7 +281,7 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 				vin = scanner.nextLine();
 			}
 
-			Car car = carDAO.readCar(vin);
+			Car car = carDAO.getCar(Integer.parseInt(vin));
 			cust.viewRemainingPayment(car);
 			showCustomerMenu(cust.getUsername());
 		} else if (customerChoice == 5) {
@@ -288,7 +294,7 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 	public Car addCarMenu() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Please enter VIN number: ");
-		String vin = scanner.nextLine();
+		int vin = scanner.nextInt();
 		System.out.println("Please enter make: ");
 		String make = scanner.nextLine();
 		System.out.println("Please enter model: ");
@@ -303,10 +309,9 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 	@Override
 	public Car removeCarMenu() {
 		Scanner scanner = new Scanner(System.in);
-		CarDAOSerialization carDAO = new CarDAOSerialization();
 		System.out.println("Please enter vin number of car to be removed: ");
-		String vin = scanner.nextLine();
-		Car car = carDAO.readCar(vin);
+		int vin = scanner.nextInt();
+		Car car = carDAO.getCar(vin);
 		return car;
 
 	}

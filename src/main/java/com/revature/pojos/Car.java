@@ -7,14 +7,14 @@ import java.util.Map;
 
 public class Car implements Serializable {
 
-	private String vin;
+	private int vin;
 	private Map<Double, String> offers = new HashMap<>();
 	private double acceptedOffer = 0;
 	private String make;
 	private String model;
 	private String color;
 	private List<Double> payments;
-	private double remainingPayment;
+	private double remainingPayment = 0;
 	private String owner;
 
 	public String getOwner() {
@@ -25,12 +25,12 @@ public class Car implements Serializable {
 		this.owner = owner;
 	}
 
-	public String getVin() {
+	public int getVin() {
 		return vin;
 	}
 
-	public void setVin(String vin) {
-		this.vin = vin;
+	public void setVin(int i) {
+		this.vin = i;
 	}
 
 	public Map<Double, String> getOffers() {
@@ -89,6 +89,8 @@ public class Car implements Serializable {
 		this.payments = payments;
 	}
 
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -104,7 +106,7 @@ public class Car implements Serializable {
 		result = prime * result + ((payments == null) ? 0 : payments.hashCode());
 		temp = Double.doubleToLongBits(remainingPayment);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((vin == null) ? 0 : vin.hashCode());
+		result = prime * result + vin;
 		return result;
 	}
 
@@ -151,10 +153,7 @@ public class Car implements Serializable {
 			return false;
 		if (Double.doubleToLongBits(remainingPayment) != Double.doubleToLongBits(other.remainingPayment))
 			return false;
-		if (vin == null) {
-			if (other.vin != null)
-				return false;
-		} else if (!vin.equals(other.vin))
+		if (vin != other.vin)
 			return false;
 		return true;
 	}
@@ -166,7 +165,7 @@ public class Car implements Serializable {
 				+ remainingPayment + ", owner=" + owner + "]";
 	}
 
-	public Car(String vin, String make, String model, String color) {
+	public Car(int vin, String make, String model, String color) {
 		super();
 		this.vin = vin;
 		this.make = make;

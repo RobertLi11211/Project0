@@ -1,14 +1,11 @@
 package com.revature.service;
 
-import com.revature.dao.CustomerDAOSerialization;
-
-import com.revature.dao.CustomerListDAOSerialization;
-import com.revature.dao.EmployeeDAOSerialization;
-import com.revature.dao.EmployeeListDAOSerialization;
 import com.revature.pojos.Car;
 import com.revature.pojos.Customer;
 import com.revature.pojos.CustomerList;
 import com.revature.pojos.Employee;
+import com.revature.sql.dao.CustomerSQLDAOPostgres;
+import com.revature.sql.dao.EmployeeSQLDAOPostgres;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +21,7 @@ public class CarSystem implements CarSystemInterface {
 	public String loginUsername() {
 		System.out.println("Enter username. \nTo return to the main menu, type main ");
 		String username = scanner.nextLine();
-		//checkMain(username);
+		//checkMain(username)
 		return username;
 	}
 	
@@ -49,14 +46,8 @@ public class CarSystem implements CarSystemInterface {
 
 		String password = loginPassword();
 		Customer newCustomer = new Customer(username, password);
-		customerList.add(newCustomer);
-		CustomerListDAOSerialization cDAO = new CustomerListDAOSerialization();
-		CustomerDAOSerialization custDAO = new CustomerDAOSerialization();
+		CustomerSQLDAOPostgres custDAO = new CustomerSQLDAOPostgres();
 		custDAO.createCustomer(newCustomer);
-		List<String> customers = cDAO.readCustomerList();
-		customers.add(newCustomer.getUsername());
-		cDAO.createCustomerList(customers);
-		
 		System.out.println("\nAccount succesfully created. Please login again. \n");
 
 	}
@@ -70,26 +61,14 @@ public class CarSystem implements CarSystemInterface {
 
 	@Override
 	public List<Customer> getCustomerList() {
-		CustomerListDAOSerialization cListGet = new CustomerListDAOSerialization();
-		CustomerDAOSerialization cDAO = new CustomerDAOSerialization();
-		List<String> cList = cListGet.readCustomerList();
-		List<Customer> customerList = new ArrayList<>();
-		for (String s : cList) {
-			customerList.add(cDAO.readCustomer(s));
-		}
-		return customerList;
+		CustomerSQLDAOPostgres custDAO = new CustomerSQLDAOPostgres();
+		return custDAO.getCustomerList();
 	}
 
 	@Override
 	public List<Employee> getEmployeeList() {
-		EmployeeListDAOSerialization eListGet = new EmployeeListDAOSerialization();
-		EmployeeDAOSerialization eDAO = new EmployeeDAOSerialization();
-		List<String> eList = eListGet.readEmployeeList();
-		List<Employee> employeeList = new ArrayList<>();
-		for (String s : eList) {
-			employeeList.add(eDAO.readEmployee(s));
-		}
-		return employeeList;
+		EmployeeSQLDAOPostgres eDAO = new EmployeeSQLDAOPostgres();		
+		return eDAO.getEmployeeList();
 
 	}
 
@@ -166,7 +145,7 @@ public class CarSystem implements CarSystemInterface {
 
 	@Override
 	public void rejectPendingOffer(Car car) {
-		// TODO Auto-generated method stub
+		//should be automatically completed by carDAO
 		car.setOffers(new HashMap<Double, String>());
 	}
 

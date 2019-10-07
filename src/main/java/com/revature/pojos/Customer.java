@@ -6,18 +6,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import com.revature.dao.CarDAOSerialization;
-import com.revature.dao.CarLotDAOSerialization;
+import com.revature.sql.dao.CarSQLDAOPostgres;
+
 import static com.revature.util.LoggerUtil.*;
 
-public class Customer implements Serializable, CustomerInterface {
+public class Customer implements  CustomerInterface {
 	private int CustID;
 	private String username;
 	private String password;
-	private List<String> carVINs = new ArrayList<>();
-	
-	
-	
+	private List<Integer> carVINs = new ArrayList<>();
+
 	public int getCustID() {
 		return CustID;
 	}
@@ -41,14 +39,12 @@ public class Customer implements Serializable, CustomerInterface {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
 
-	public List<String> getCarVINs() {
+	public List<Integer> getCarVINs() {
 		return carVINs;
 	}
 
-	public void setCarVINs(List<String> carVINs) {
+	public void setCarVINs(List<Integer> carVINs) {
 		this.carVINs = carVINs;
 	}
 
@@ -107,20 +103,16 @@ public class Customer implements Serializable, CustomerInterface {
 
 	@Override
 	public List<Car> getCarLot() {
-		CarLotDAOSerialization carLotDAO = new CarLotDAOSerialization();
-		CarDAOSerialization carDAO = new CarDAOSerialization();
-		List<String> carLotVin = carLotDAO.readCarLotList();
-		List<Car> ret = new ArrayList<>();
-		for (String s : carLotVin) {
-			Car c = carDAO.readCar(s);
-			if (c.getAcceptedOffer() == 0) {
-				ret.add(c);
+		CarSQLDAOPostgres carDAO = new CarSQLDAOPostgres();
+		List<Car> ret = carDAO.getCarLot();
+		for (Car c : ret) {
+			if (c.getAcceptedOffer() != 0) {
+				ret.remove(c);
 			}
 		}
-		for (Car car: ret) {
-			System.out.println("VIN: " + car.getVin() + "\nMake: " + car.getMake() + 
-					"\nModel: " + car.getModel() + "\nColor: " + car.getColor() + 
-					"\nOffers: " + car.getOffers());	
+		for (Car car : ret) {
+			System.out.println("VIN: " + car.getVin() + "\nMake: " + car.getMake() + "\nModel: " + car.getModel()
+					+ "\nColor: " + car.getColor() + "\nOffers: " + car.getOffers());
 			System.out.println(" ");
 		}
 		System.out.println("\n");
@@ -129,20 +121,19 @@ public class Customer implements Serializable, CustomerInterface {
 
 	@Override
 	public List<Car> viewMyCars() {
-		// TODO Auto-generated method stub
 		List<Car> myCars = new ArrayList<>();
-		CarDAOSerialization carDAO = new CarDAOSerialization();
+		CarSQLDAOPostgres carDAO = new CarSQLDAOPostgres();
 		if (this.carVINs == null) {
 			System.out.println("You own no cars");
 			return null;
 		} else {
-			for (String vin : carVINs) {
-				myCars.add(carDAO.readCar(vin));
+			for (Integer vin : carVINs) {
+				myCars.add(carDAO.getCar(vin));
 			}
 		}
-		for (Car car: myCars) {
-			System.out.println("VIN: " + car.getVin() + "\nMake: " + car.getMake() + 
-					"\nModel: " + car.getModel() + "\nColor: " + car.getColor() + "\n");			
+		for (Car car : myCars) {
+			System.out.println("VIN: " + car.getVin() + "\nMake: " + car.getMake() + "\nModel: " + car.getModel()
+					+ "\nColor: " + car.getColor() + "\n" + "\nMonthly Payment: " + car.getAcceptedOffer() / 12);
 		}
 		return myCars;
 	}
@@ -172,21 +163,15 @@ public class Customer implements Serializable, CustomerInterface {
 
 	@Override
 	public Car makeOffer(double offer, Car c) {
-		CarDAOSerialization carDAO = new CarDAOSerialization();
+		CarSQLDAOPostgres carDAO = new CarSQLDAOPostgres();
 		if (c.getAcceptedOffer() == 0) {
-			Map<Double, String> carOffers = c.getOffers();
-			info("" + carOffers);
-			carOffers.put(offer, getUsername());
-			info("" + carOffers); 
-			c.setOffers(carOffers);
-			info("" + c.getOffers());
-			carDAO.createCar(c);
+			carDAO.updateOffers(c.getVin(), offer, this.username);
 			return c;
 		} else {
 			System.out.println("Car has already been bought");
 			return c;
 		}
-		
+
 	}
 
 }
