@@ -22,15 +22,12 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 	// DAOs
 	CarSQLDAOPostgres carDAO = new CarSQLDAOPostgres();
 	CustomerSQLDAOPostgres custDAO = new CustomerSQLDAOPostgres();
-	EmployeeSQLDAOPostgres eDAO = new EmployeeSQLDAOPostgres();
-	
+	EmployeeSQLDAOPostgres eDAO = new EmployeeSQLDAOPostgres();	
 
 	// Creating objects
 	CarSystem carSys = new CarSystem();
 	Scanner scanner = new Scanner(System.in);
-	/*
-	 * String vin; String username; boolean custLogin; Customer c; boolean empLogin;
-	 */
+	
 
 	@Override
 	public String loginUsername() {
@@ -292,7 +289,6 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 
 	@Override
 	public Car addCarMenu() {
-		Scanner scanner = new Scanner(System.in);
 		System.out.println("Please enter VIN number: ");
 		int vin = scanner.nextInt();
 		System.out.println("Please enter make: ");
@@ -308,7 +304,6 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 
 	@Override
 	public Car removeCarMenu() {
-		Scanner scanner = new Scanner(System.in);
 		System.out.println("Please enter vin number of car to be removed: ");
 		int vin = scanner.nextInt();
 		Car car = carDAO.getCar(vin);
