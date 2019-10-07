@@ -2,6 +2,7 @@ package com.revature.sql.dao;
 
 import java.util.List;
 
+import com.revature.pojos.Car;
 import com.revature.pojos.Customer;
 
 public interface CustomerSQLDAO {
@@ -10,4 +11,6 @@ public interface CustomerSQLDAO {
 	public void createCustomer(Customer c);
 	
 	public List<Customer> getCustomerList();
+	
+	public List<Car> getCustomerCarList(Customer c);
 }
