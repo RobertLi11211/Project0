@@ -1,12 +1,13 @@
 package com.revature.pojos;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Car implements Serializable{
-	
-	private String vin;	
+public class Car implements Serializable {
+
+	private String vin;
 	private Map<Double, String> offers = new HashMap<>();
 	private double acceptedOffer = 0;
 	private String make;
@@ -14,59 +15,80 @@ public class Car implements Serializable{
 	private String color;
 	private List<Double> payments;
 	private double remainingPayment;
-	
+	private String owner;
+
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+
 	public String getVin() {
 		return vin;
 	}
+
 	public void setVin(String vin) {
 		this.vin = vin;
 	}
+
 	public Map<Double, String> getOffers() {
 		return offers;
 	}
+
 	public void setOffers(Map<Double, String> offers) {
 		this.offers = offers;
 	}
+
 	public double getAcceptedOffer() {
 		return acceptedOffer;
 	}
+
 	public void setAcceptedOffer(double acceptedOffer) {
 		this.acceptedOffer = acceptedOffer;
 	}
+
 	public String getMake() {
 		return make;
 	}
+
 	public void setMake(String make) {
 		this.make = make;
 	}
+
 	public String getModel() {
 		return model;
 	}
+
 	public void setModel(String model) {
 		this.model = model;
 	}
+
 	public String getColor() {
 		return color;
 	}
+
 	public void setColor(String color) {
 		this.color = color;
 	}
-	
-	
+
 	public double getRemainingPayment() {
 		return remainingPayment;
 	}
+
 	public void setRemainingPayment(double remainingPayment) {
 		this.remainingPayment = remainingPayment;
 	}
-	
-	
+
 	public List<Double> getPayments() {
 		return payments;
 	}
+
 	public void setPayments(List<Double> payments) {
 		this.payments = payments;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -78,9 +100,14 @@ public class Car implements Serializable{
 		result = prime * result + ((make == null) ? 0 : make.hashCode());
 		result = prime * result + ((model == null) ? 0 : model.hashCode());
 		result = prime * result + ((offers == null) ? 0 : offers.hashCode());
+		result = prime * result + ((owner == null) ? 0 : owner.hashCode());
+		result = prime * result + ((payments == null) ? 0 : payments.hashCode());
+		temp = Double.doubleToLongBits(remainingPayment);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((vin == null) ? 0 : vin.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -112,6 +139,18 @@ public class Car implements Serializable{
 				return false;
 		} else if (!offers.equals(other.offers))
 			return false;
+		if (owner == null) {
+			if (other.owner != null)
+				return false;
+		} else if (!owner.equals(other.owner))
+			return false;
+		if (payments == null) {
+			if (other.payments != null)
+				return false;
+		} else if (!payments.equals(other.payments))
+			return false;
+		if (Double.doubleToLongBits(remainingPayment) != Double.doubleToLongBits(other.remainingPayment))
+			return false;
 		if (vin == null) {
 			if (other.vin != null)
 				return false;
@@ -119,13 +158,14 @@ public class Car implements Serializable{
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Car [vin=" + vin + ", offers=" + offers + ", acceptedOffer=" + acceptedOffer + ", make=" + make
 				+ ", model=" + model + ", color=" + color + ", payments=" + payments + ", remainingPayment="
-				+ remainingPayment + "]";
+				+ remainingPayment + ", owner=" + owner + "]";
 	}
+
 	public Car(String vin, String make, String model, String color) {
 		super();
 		this.vin = vin;
@@ -133,11 +173,10 @@ public class Car implements Serializable{
 		this.model = model;
 		this.color = color;
 	}
+
 	public Car() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
+
 }
