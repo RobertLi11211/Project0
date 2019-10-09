@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.revature.sql.dao.CarSQLDAOPostgres;
+import com.revature.sql.dao.CustomerSQLDAOPostgres;
 
 import static com.revature.util.LoggerUtil.*;
 
@@ -105,15 +106,13 @@ public class Customer implements  CustomerInterface {
 	public List<Car> getCarLot() {
 		CarSQLDAOPostgres carDAO = new CarSQLDAOPostgres();
 		List<Car> ret = carDAO.getCarLot();
-		for (Car c : ret) {
-			if (c.getAcceptedOffer() != 0) {
-				ret.remove(c);
-			}
-		}
 		for (Car car : ret) {
-			System.out.println("VIN: " + car.getVin() + "\nMake: " + car.getMake() + "\nModel: " + car.getModel()
+			if (car.getAcceptedOffer() == 0) {
+				car.setOffers(carDAO.getOffers(car.getVin()));
+				System.out.println("VIN: " + car.getVin() + "\nMake: " + car.getMake() + "\nModel: " + car.getModel()
 					+ "\nColor: " + car.getColor() + "\nOffers: " + car.getOffers());
-			System.out.println(" ");
+				System.out.println(" ");
+			}
 		}
 		System.out.println("\n");
 		return ret;
@@ -121,8 +120,11 @@ public class Customer implements  CustomerInterface {
 
 	@Override
 	public List<Car> viewMyCars() {
-		List<Car> myCars = new ArrayList<>();
+		CustomerSQLDAOPostgres custDAO = new CustomerSQLDAOPostgres();
+		List<Car> myCars = custDAO.getCustomerCarList(this);
+		
 		CarSQLDAOPostgres carDAO = new CarSQLDAOPostgres();
+		
 		if (this.carVINs == null) {
 			System.out.println("You own no cars");
 			return null;
@@ -131,9 +133,11 @@ public class Customer implements  CustomerInterface {
 				myCars.add(carDAO.getCar(vin));
 			}
 		}
+		info("my vins " + this.carVINs);
+		info("my cars + " + myCars);
 		for (Car car : myCars) {
 			System.out.println("VIN: " + car.getVin() + "\nMake: " + car.getMake() + "\nModel: " + car.getModel()
-					+ "\nColor: " + car.getColor() + "\n" + "\nMonthly Payment: " + car.getAcceptedOffer() / 12);
+					+ "\nColor: " + car.getColor() + "\nMonthly Payment: " + car.getAcceptedOffer() / 12 + "\n");
 		}
 		return myCars;
 	}

@@ -47,13 +47,13 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 	}
 
 	@Override
-	public boolean checkVin(String s) {
+	public boolean checkVin(int vin) {
 		List<Car> cars = carDAO.getCarLot();
 		List<Integer> vins = new ArrayList<>();
 		for (Car car:cars) {
 			vins.add(car.getVin());
 		}
-		if (vins.contains(s)) {
+		if (vins.contains(vin)) {
 			return true;
 		} else {
 			return false;
@@ -178,8 +178,8 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 			System.out.println("Car successfully added");
 			showEmployeeMenu(username);
 		} else if (employeeChoice == 2) {
-			car = removeCarMenu();
-			e.removeCar(car);
+			int carvin = removeCarMenu();
+			e.removeCar(carvin);
 			System.out.println("Car successfully removed");
 			showEmployeeMenu(username);
 		} else if (employeeChoice == 3) {
@@ -239,18 +239,18 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 				vins.add(c.getVin());
 			}
 			System.out.println("Please write the vin number of the car for which you wish to offer");
-			String vin = scanner.nextLine();
+			int vin = scanner.nextInt();
 
 			while (vins.contains(vin) == false) {
-				if (vin == "back") {
+				if (vin == 0) {
 					showCustomerMenu(cust.getUsername());
 				}
 				System.out.println("Please input a valid vin");
-				System.out.println("If you wish to go back, type back");
-				vin = scanner.nextLine();
+				System.out.println("If you wish to go back, type 0");
+				vin = scanner.nextInt();
 			}
 
-			Car car = carDAO.getCar(Integer.parseInt(vin));
+			Car car = carDAO.getCar(vin);
 			System.out.println("Please input your offer: ");
 			double offer = scanner.nextDouble();
 			scanner.nextLine();
@@ -267,18 +267,18 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 				vins.add(c.getVin());
 			}
 			System.out.println("Please input vin number of car you would like to see");
-			String vin = scanner.nextLine();
+			int vin = scanner.nextInt();
 
 			while (vins.contains(vin) == false) {
-				if (vin == "back") {
+				if (vin == 0) {
 					showCustomerMenu(cust.getUsername());
 				}
 				System.out.println("Please input a valid vin");
 				System.out.println("If you wish to go back, type back");
-				vin = scanner.nextLine();
+				vin = scanner.nextInt();
 			}
 
-			Car car = carDAO.getCar(Integer.parseInt(vin));
+			Car car = carDAO.getCar(vin);
 			cust.viewRemainingPayment(car);
 			showCustomerMenu(cust.getUsername());
 		} else if (customerChoice == 5) {
@@ -289,8 +289,10 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 
 	@Override
 	public Car addCarMenu() {
-		System.out.println("Please enter VIN number: ");
-		int vin = scanner.nextInt();
+		Car c = new Car();
+		/*
+		 * System.out.println("Please enter VIN number: "); int vin = scanner.nextInt();
+		 */
 		System.out.println("Please enter make: ");
 		String make = scanner.nextLine();
 		System.out.println("Please enter model: ");
@@ -298,28 +300,37 @@ public class CarSystemMenu implements CarSystemMenuInterface {
 		System.out.println("Please enter color: ");
 		String color = scanner.nextLine();
 
-		Car c = new Car(vin, make, model, color);
+		c.setMake(make);
+		c.setModel(model);
+		c.setColor(color);
 		return c;
 	}
 
 	@Override
-	public Car removeCarMenu() {
+	public int removeCarMenu() {
+		Customer cust = new Customer();
+		cust.getCarLot();
 		System.out.println("Please enter vin number of car to be removed: ");
 		int vin = scanner.nextInt();
-		Car car = carDAO.getCar(vin);
-		return car;
+		String doubleInput = scanner.nextLine();
+		return vin;
 
 	}
 
 	@Override
 	public String[] showOffersMenu() {
 		
-		Customer cust = new Customer();
-		cust.getCarLot();
+		List<Car> carLot = carDAO.getCarLot();
+		for (Car car:carLot) {
+			car.setOffers(carDAO.getOffers(car.getVin()));
+			System.out.println("VIN: " + car.getVin() + "\nMake: " + car.getMake() + "\nModel: " + car.getModel()
+				+ "\nColor: " + car.getColor() + "\nOffers: " + car.getOffers());
+			System.out.println(" ");
+		}
 		String[] ret = new String[3];
 		System.out.println("Please type the car's vin: ");
 		ret[0] = scanner.nextLine();
-		if (!checkVin(ret[0])) {
+		if (!checkVin(Integer.parseInt(ret[0]))) {
 			System.out.println("Incorrect vin. Try again");
 			showOffersMenu();
 		}

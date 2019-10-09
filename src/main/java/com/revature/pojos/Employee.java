@@ -116,9 +116,9 @@ public class Employee implements EmployeeInterface {
 	}
 
 	@Override
-	public void removeCar(Car c) {
+	public void removeCar(int vin) {
 		CarSQLDAOPostgres carDAO = new CarSQLDAOPostgres();
-		carDAO.removeCar(c.getVin());
+		carDAO.removeCar(vin);
 		
 	}
 

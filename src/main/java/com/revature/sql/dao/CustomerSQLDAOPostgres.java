@@ -57,11 +57,12 @@ public class CustomerSQLDAOPostgres implements CustomerSQLDAO {
 		String sql = "select * from CarCustomers";
 		List<Customer> custList = new ArrayList<>();
 		PreparedStatement stat;
+		
 		try {
-			Customer cust = new Customer();
 			stat = conn.prepareStatement(sql);
 			ResultSet rs = stat.executeQuery();
 			while (rs.next()) {
+				Customer cust = new Customer();
 				cust.setCustID(rs.getInt(1));
 				cust.setUsername(rs.getString(2));
 				cust.setPassword(rs.getString(3));
@@ -85,7 +86,7 @@ public class CustomerSQLDAOPostgres implements CustomerSQLDAO {
 			stat.setInt(1, c.getCustID());
 			ResultSet rs = stat.executeQuery();
 			while (rs.next()) {
-				carVins.add(rs.getInt(2));
+				carVins.add(rs.getInt(1));
 			}
 
 		} catch (SQLException e) {

@@ -78,6 +78,8 @@ public class CarSystem implements CarSystemInterface {
 		Map<String, String> userAndPass = new HashMap<>();
 		for (Customer c : customerList) {
 			userAndPass.put(c.getUsername(), c.getPassword());
+			info("Username: " + c.getUsername());
+			info("Password: " + c.getPassword());
 		}
 		return userAndPass;
 	}
@@ -104,6 +106,7 @@ public class CarSystem implements CarSystemInterface {
 			if (password.contentEquals(pass)) {
 				return true;
 			} else {
+				info("From customerlogin Pass is: " + pass);
 				System.out.println("Incorrect password");
 				return false;
 			}

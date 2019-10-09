@@ -9,7 +9,7 @@ public interface CarSystemMenuInterface {
 	
 	public String loginPassword();
 	
-	public boolean checkVin(String s);
+	public boolean checkVin(int vin);
 	
 	public boolean checkUsername(String s);
 	
@@ -21,7 +21,7 @@ public interface CarSystemMenuInterface {
 	
 	public Car addCarMenu();
 	
-	public Car removeCarMenu();
+	public int removeCarMenu();
 	
 	public String[] showOffersMenu();
 	

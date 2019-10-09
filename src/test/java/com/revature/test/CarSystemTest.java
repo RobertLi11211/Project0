@@ -53,21 +53,7 @@ public class CarSystemTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
-	public void testLogInUsername() {
-		assertEquals("The username should be Robert", "Robert", carSysMenu.loginUsername());
-	}
-	
-	@Test
-	public void testLogInPassword() {
-		assertEquals("The password should be 11211", "11211", carSysMenu.loginPassword());
-	}
-	
-	/*
-	 * @Test public void testMenu() { assertEquals("The choice is 1", new
-	 * Integer(1), carSys.showMenu()); }
-	 */
-	
+		
 	@Test
 	public void testCustomerLoginWorks() {
 		assertTrue("This should return true", carSys.customerLogin("Robert", "11211"));
@@ -106,7 +92,7 @@ public class CarSystemTest {
 	
 	@Test
 	public void testRejectOffer() {
-		e.rejectOffer(offer, cust, car);
+		e.rejectOffer(offer, cust, car.getVin());
 		assertEquals("There should be no pending offers", new HashMap<Double, Customer>(), car.getOffers());
 	}
 	

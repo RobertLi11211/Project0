@@ -12,6 +12,6 @@ public interface EmployeeInterface {
 	
 	public List<Double> viewPayments(Car c);
 	
-	public void removeCar(Car c);
+	public void removeCar(int vin);
 
 }

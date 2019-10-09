@@ -251,3 +251,98 @@
 2019-10-04 09:01:34 INFO  root(1):26 chose 5
 2019-10-04 09:02:02 INFO  root(1):26 reached pass succesfully
 2019-10-04 09:02:08 INFO  root(1):26 chose 5
+2019-10-09 09:54:09 INFO  root(1):26 reached pass succesfully
+2019-10-09 09:54:14 INFO  root(1):26 Username: 11211
+2019-10-09 09:54:14 INFO  root(1):26 Password: main
+2019-10-09 09:54:14 INFO  root(1):26 Username: 11211
+2019-10-09 09:54:14 INFO  root(1):26 Password: main
+2019-10-09 09:55:57 INFO  root(1):26 reached pass succesfully
+2019-10-09 09:56:01 INFO  root(1):26 Username: 11211
+2019-10-09 09:56:01 INFO  root(1):26 Password: main
+2019-10-09 09:56:01 INFO  root(1):26 Username: 11211
+2019-10-09 09:56:01 INFO  root(1):26 Password: main
+2019-10-09 09:58:31 INFO  root(1):26 reached pass succesfully
+2019-10-09 09:58:32 INFO  root(1):26 Username: Robert
+2019-10-09 09:58:32 INFO  root(1):26 Password: 11211
+2019-10-09 09:58:37 INFO  root(1):26 chose 3
+2019-10-09 10:00:08 INFO  root(1):26 chose 3
+2019-10-09 10:06:54 INFO  root(1):26 reached pass succesfully
+2019-10-09 10:06:55 INFO  root(1):26 Username: Robert
+2019-10-09 10:06:55 INFO  root(1):26 Password: 11211
+2019-10-09 10:07:01 INFO  root(1):26 chose 3
+2019-10-09 10:07:01 INFO  root(1):26 my cars + []
+2019-10-09 10:09:23 INFO  root(1):26 reached pass succesfully
+2019-10-09 10:09:25 INFO  root(1):26 Username: Robert
+2019-10-09 10:09:25 INFO  root(1):26 Password: 11211
+2019-10-09 10:09:26 INFO  root(1):26 chose 3
+2019-10-09 10:09:26 INFO  root(1):26 my vins []
+2019-10-09 10:09:26 INFO  root(1):26 my cars + []
+2019-10-09 10:09:29 INFO  root(1):26 chose 5
+2019-10-09 10:13:22 INFO  root(1):26 reached pass succesfully
+2019-10-09 10:13:24 INFO  root(1):26 Username: Robert
+2019-10-09 10:13:24 INFO  root(1):26 Password: 11211
+2019-10-09 10:13:27 INFO  root(1):26 chose 3
+2019-10-09 10:13:28 INFO  root(1):26 my vins []
+2019-10-09 10:13:28 INFO  root(1):26 my cars + []
+2019-10-09 10:14:49 INFO  root(1):26 reached pass succesfully
+2019-10-09 10:14:51 INFO  root(1):26 Username: Robert
+2019-10-09 10:14:51 INFO  root(1):26 Password: 11211
+2019-10-09 10:14:54 INFO  root(1):26 did not choose 1-6
+2019-10-09 10:15:01 INFO  root(1):26 chose 3
+2019-10-09 10:15:02 INFO  root(1):26 my vins []
+2019-10-09 10:15:02 INFO  root(1):26 my cars + [Car [vin=5, offers={}, acceptedOffer=9999.0, make=Mercedes, model=Benz, color=Black, payments=null, remainingPayment=0.0, owner=Robert]]
+2019-10-09 12:02:17 INFO  root(1):26 Username: Robert
+2019-10-09 12:02:17 INFO  root(1):26 Password: 11211
+2019-10-09 12:02:24 INFO  root(1):26 reached pass succesfully
+2019-10-09 12:02:37 INFO  root(1):26 reached pass succesfully
+2019-10-09 12:02:40 INFO  root(1):26 Username: Robert
+2019-10-09 12:02:40 INFO  root(1):26 Password: 11211
+2019-10-09 12:02:40 INFO  root(1):26 Username: John
+2019-10-09 12:02:40 INFO  root(1):26 Password: TestPass
+2019-10-09 12:02:40 INFO  root(1):26 From customerlogin Pass is: TestPass
+2019-10-09 12:02:46 INFO  root(1):26 reached pass succesfully
+2019-10-09 12:02:48 INFO  root(1):26 Username: Robert
+2019-10-09 12:02:48 INFO  root(1):26 Password: 11211
+2019-10-09 12:02:48 INFO  root(1):26 Username: John
+2019-10-09 12:02:48 INFO  root(1):26 Password: TestPass
+2019-10-09 12:02:52 INFO  root(1):26 chose 1
+2019-10-09 12:03:04 INFO  root(1):26 chose 2
+2019-10-09 12:03:22 INFO  root(1):26 chose 2
+2019-10-09 12:03:30 INFO  root(1):26 chose 1
+2019-10-09 12:03:39 INFO  root(1):26 chose 5
+2019-10-09 12:03:43 INFO  root(1):26 reached pass succesfully
+2019-10-09 12:03:45 INFO  root(1):26 Username: Robert
+2019-10-09 12:03:45 INFO  root(1):26 Password: 11211
+2019-10-09 12:03:45 INFO  root(1):26 Username: John
+2019-10-09 12:03:45 INFO  root(1):26 Password: TestPass
+2019-10-09 12:03:48 INFO  root(1):26 chose 3
+2019-10-09 12:03:49 INFO  root(1):26 my vins []
+2019-10-09 12:03:49 INFO  root(1):26 my cars + [Car [vin=5, offers={}, acceptedOffer=9999.0, make=Mercedes, model=Benz, color=Black, payments=null, remainingPayment=0.0, owner=Robert]]
+2019-10-09 12:03:58 INFO  root(1):26 chose 5
+2019-10-09 12:43:38 INFO  root(1):26 reached pass succesfully
+2019-10-09 12:43:39 INFO  root(1):26 Employee [username=Robert, password=11211]
+2019-10-09 12:43:41 INFO  root(1):26 chose 1
+2019-10-09 12:44:08 INFO  root(1):26 chose 1
+2019-10-09 12:44:21 INFO  root(1):26 chose 6
+2019-10-09 12:44:25 INFO  root(1):26 reached pass succesfully
+2019-10-09 12:44:26 INFO  root(1):26 Username: Robert
+2019-10-09 12:44:26 INFO  root(1):26 Password: 11211
+2019-10-09 12:44:26 INFO  root(1):26 Username: John
+2019-10-09 12:44:26 INFO  root(1):26 Password: TestPass
+2019-10-09 12:44:28 INFO  root(1):26 chose 1
+2019-10-09 12:45:11 INFO  root(1):26 chose 1
+2019-10-09 12:45:22 INFO  root(1):26 chose 2
+2019-10-09 12:45:29 INFO  root(1):26 chose 5
+2019-10-09 12:45:32 INFO  root(1):26 reached pass succesfully
+2019-10-09 12:45:34 INFO  root(1):26 Employee [username=Robert, password=11211]
+2019-10-09 12:45:37 INFO  root(1):26 chose 3
+2019-10-09 12:45:49 INFO  root(1):26 chose 6
+2019-10-09 12:46:07 INFO  root(1):26 reached pass succesfully
+2019-10-09 12:46:08 INFO  root(1):26 Username: Robert
+2019-10-09 12:46:08 INFO  root(1):26 Password: 11211
+2019-10-09 12:46:08 INFO  root(1):26 Username: John
+2019-10-09 12:46:08 INFO  root(1):26 Password: TestPass
+2019-10-09 12:46:12 INFO  root(1):26 chose 1
+2019-10-09 12:46:25 INFO  root(1):26 chose 3
+2019-10-09 12:46:26 INFO  root(1):26 my vins []
+2019-10-09 12:46:26 INFO  root(1):26 my cars + [Car [vin=5, offers={}, acceptedOffer=9999.0, make=Mercedes, model=Benz, color=Black, payments=null, remainingPayment=0.0, owner=Robert], Car [vin=11, offers={}, acceptedOffer=3542.0, make=Lamborghini, model=Model, color=White, payments=null, remainingPayment=0.0, owner=Robert]]

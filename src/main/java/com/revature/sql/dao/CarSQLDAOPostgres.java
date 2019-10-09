@@ -43,10 +43,10 @@ public class CarSQLDAOPostgres implements CarSQLDAO {
 
 	@Override
 	public void createCar(Car c) {
-		String sql = "insert into carlot (make, model, color, acceptedoffer, remainingpayment, owner"
-				 + " values (?, ?, ?, ?, ?, ?)";
+		String sql = "insert into carlot (make, model, color, acceptedoffer, remainingpayment, owner)"
+				+ " values (?, ?, ?, ?, ?, ?)";
 		PreparedStatement stat;
-		
+
 		try {
 			stat = conn.prepareStatement(sql);
 			stat.setString(1, c.getMake());
@@ -55,7 +55,7 @@ public class CarSQLDAOPostgres implements CarSQLDAO {
 			stat.setDouble(4, c.getAcceptedOffer());
 			stat.setDouble(5, c.getRemainingPayment());
 			stat.setString(6, c.getOwner());
-			
+
 			stat.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -65,7 +65,7 @@ public class CarSQLDAOPostgres implements CarSQLDAO {
 
 	@Override
 	public List<Car> getCarLot() {
-		String sql = "select * from CarLot";
+		String sql = "select * from CarLot order by vin";
 		PreparedStatement stat;
 		List<Car> carLot = new ArrayList<>();
 		try {
@@ -93,12 +93,12 @@ public class CarSQLDAOPostgres implements CarSQLDAO {
 		String sql = "select * from CarOffers where vin = ?";
 		PreparedStatement stat;
 		Map<Double, String> offers = new HashMap<>();
-		
+
 		try {
 			stat = conn.prepareStatement(sql);
 			stat.setInt(1, vin);
 			ResultSet rs = stat.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				Double offer = rs.getDouble(3);
 				String username = rs.getString(4);
 				offers.put(offer, username);
@@ -114,71 +114,68 @@ public class CarSQLDAOPostgres implements CarSQLDAO {
 		String sql = "select * from CarPayments where vin = ?";
 		PreparedStatement stat;
 		List<Double> payments = new ArrayList<>();
-		
+
 		try {
 			stat = conn.prepareStatement(sql);
 			stat.setInt(1, vin);
 			ResultSet rs = stat.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				Double payment = rs.getDouble(2);
 				payments.add(payment);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return payments;
 	}
 
 	@Override
 	public void updateOffers(int vin, Double offer, String username) {
-		String sql = "insert into CarOffers (vin, OfferAmount, OfferBy " + 
-				"values (?, ?, ?)";
+		String sql = "insert into CarOffers (vin, OfferAmount, OfferBy) " + "values (?, ?, ?)";
 		PreparedStatement stat;
-		
+
 		try {
 			stat = conn.prepareStatement(sql);
-			stat.setInt(1,  vin);
-			stat.setDouble(2,  offer);
+			stat.setInt(1, vin);
+			stat.setDouble(2, offer);
 			stat.setString(3, username);
 			stat.executeUpdate();
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
 	public void acceptOffer(Double offer, String username, int vin) {
-		//set accepted offer in carlot		
-		String sql = "update CarLot " + 
-				"Set acceptedOffer = ?, owner = ?" + 
-				"where vin = ?";
+		// set accepted offer in carlot
+		String sql = "update CarLot " + "Set acceptedOffer = ?, owner = ?" + "where vin = ?";
 		PreparedStatement stat;
-		
+
 		try {
 			stat = conn.prepareStatement(sql);
 			stat.setDouble(1, offer);
-			stat.setString(2,  username);
+			stat.setString(2, username);
 			stat.setInt(3, vin);
 			stat.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		//reject pending offers
+
+		// reject pending offers
 		String sql2 = "delete from CarOffers where vin = ?";
 		PreparedStatement stat2;
-		
+
 		try {
 			stat2 = conn.prepareStatement(sql2);
 			stat2.setInt(1, vin);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		//add vin to customer's car lot
+
+		// add vin to customer's car lot
 		CustomerSQLDAOPostgres custDAO = new CustomerSQLDAOPostgres();
 		Customer c = custDAO.getCustomer(username);
 		String sql3 = "insert into CustomerCarList (CustID, vin) values (?, ?)";
@@ -195,6 +192,7 @@ public class CarSQLDAOPostgres implements CarSQLDAO {
 
 	@Override
 	public void rejectOffer(Double offer, String username, int vin) {
+
 		String sql = "Delete from CarOffers where OfferAmount = ? and OfferBy = ? and vin = ?";
 		PreparedStatement stat;
 		try {
@@ -206,7 +204,7 @@ public class CarSQLDAOPostgres implements CarSQLDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -221,39 +219,40 @@ public class CarSQLDAOPostgres implements CarSQLDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
 	public void removeCar(int vin) {
-		String sql = "Delete from carlot where vin = ?";
+
 		PreparedStatement stat;
+		String sql = "Delete from caroffers where vin = ?";
 		try {
 			stat = conn.prepareStatement(sql);
 			stat.setInt(1, vin);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		sql = "Delete from caroffers where vin = ?";
+
+		String sql2 = "Delete from carpayments where vin = ?";
 		try {
-			stat = conn.prepareStatement(sql);
+			stat = conn.prepareStatement(sql2);
 			stat.setInt(1, vin);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		sql = "Delete from carpayments where vin = ?";
+
+		String sql3 = "Delete from customercarlist where vin = ?";
 		try {
-			stat = conn.prepareStatement(sql);
+			stat = conn.prepareStatement(sql3);
 			stat.setInt(1, vin);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		sql = "Delete from customercarlist where vin = ?";
+
+		String sql4 = "Delete from carlot where vin = ?";
 		try {
-			stat = conn.prepareStatement(sql);
+			stat = conn.prepareStatement(sql4);
 			stat.setInt(1, vin);
 		} catch (SQLException e) {
 			e.printStackTrace();
